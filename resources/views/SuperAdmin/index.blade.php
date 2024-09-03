@@ -11,6 +11,14 @@
 
     {{-- Custom CSS --}}
     <style>
+        .rotate-icon {
+            transform: rotate(180deg);
+        }
+
+        i.fa-solid {
+            transition: transform 0.3s ease;
+        }
+        
         @media (min-width: 768px) {
             .fs-md-4 {
                 font-size: calc(1.275rem + 0.3vw) !important;
@@ -86,21 +94,30 @@
                                 </div>
                             </div>
                             <div class="col-2 col-sm-1 text-center">
-                                <a class="text-black" data-bs-toggle="collapse" href="#dokumen1" role="button" aria-expanded="false" aria-controls="dokumen1"><i class="fa-solid fa-angle-up"></i></a>
+                                <a class="text-black toggle-icon" data-bs-toggle="collapse" href="#dokumen1" role="button" aria-expanded="false" aria-controls="dokumen1"><i class="fa-solid fa-angle-up"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="collapse" id="dokumen1">
                         {{-- Pengulangan Timeline --}}
                         <a href="{{ route('superAdmin.status.dokumen') }}" class="text-decoration-none">
-                            <div class="card-body d-flex justify-content-between">
-                                <h5 class="card-title link-offset-1 d-flex align-items-center">
-                                    <i class="fa-solid fa-square-check fa-xl text-success"></i>
-                                    <span class="text-decoration-underline fw-medium ms-3 text-black">Pengajuan Nota Dinas</span>
-                                </h5>
-                                <div class="d-flex flex-column">
-                                    <span class="fw-medium text-black">(Admin SPPD 1)</span>
-                                    <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">10 Agustus 2024 10:00</small>
+                            <div class="card-body row gy-2 justify-content-between">
+                                <div class="col-12 col-sm-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <i class="fa-solid fa-square-check fa-2xl text-success"></i>
+                                        </div>
+                                        <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
+                                            <span class="fw-medium text-black mb-1">Pengajuan Nota Dinas</span>
+                                            <small class="text-secondary link-offset-1 text-decoration-underline fw-normal" style="font-size: .8rem">Pengajuan ditolak karena tidak memenuhi kriteria pengajuan. Mohon Ajukan ulang</small>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-auto">
+                                    <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
+                                        <span class="fw-medium text-black">(Admin SPPD 1)</span>
+                                        <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">10 Agustus 2024 10:00</small>
+                                    </div>
                                 </div>
                             </div>
                         </a>
@@ -120,21 +137,30 @@
                                 </div>
                             </div>
                             <div class="col-2 col-sm-1 text-center">
-                                <a class="text-black" data-bs-toggle="collapse" href="#dokumen2" role="button" aria-expanded="false" aria-controls="dokumen2"><i class="fa-solid fa-angle-up text-white"></i></a>
+                                <a class="text-black toggle-icon" data-bs-toggle="collapse" href="#dokumen2" role="button" aria-expanded="false" aria-controls="dokumen2"><i class="fa-solid fa-angle-up text-white"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="collapse" id="dokumen2">
                         {{-- Pengulangan Timeline --}}
                         <a href="/ubahstatus" class="text-decoration-none">
-                            <div class="card-body d-flex justify-content-between">
-                                <h5 class="card-title link-offset-1 d-flex align-items-center">
-                                    <i class="fa-solid fa-square-check fa-xl text-success"></i>
-                                    <span class="text-decoration-underline fw-medium ms-3 text-black">Pengajuan Nota Dinas</span>
-                                </h5>
-                                <div class="d-flex flex-column">
-                                    <span class="fw-medium text-black">(Admin SPPD 1)</span>
-                                    <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">10 Agustus 2024 10:00</small>
+                            <div class="card-body row gy-2 justify-content-between">
+                                <div class="col-12 col-sm-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <i class="fa-solid fa-square-check fa-2xl text-success"></i>
+                                        </div>
+                                        <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
+                                            <span class="fw-medium text-black mb-1">Pengajuan Nota Dinas</span>
+                                            <small class="text-secondary link-offset-1 text-decoration-underline fw-normal" style="font-size: .8rem">10 Agustus 2024 10:00</small>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-auto">
+                                    <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
+                                        <span class="fw-medium text-black">(Admin SPPD 1)</span>
+                                        <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">10 Agustus 2024 10:00</small>
+                                    </div>
                                 </div>
                             </div>
                         </a> 
@@ -146,7 +172,7 @@
         {{-- Pagination --}}
         <div id="pagination-links"></div>
     </main>
-    <footer class="footer fixed-bottom m-3 fw-medium text-secondary text-center">Copyright &copy; Pusat Survei Geologi, 2024</footer>
+    <footer class="footer z-n1 fixed-bottom m-3 fw-medium text-secondary text-center">Copyright &copy; Pusat Survei Geologi, 2024</footer>
 
     {{-- Icon FontAwesome --}}
     <script src="https://kit.fontawesome.com/e814145206.js" crossorigin="anonymous"></script>
@@ -159,7 +185,7 @@
             const viewportHeight = window.innerHeight;
             const footer = document.querySelector('.footer');
 
-            if (bodyHeight > viewportHeight) {
+            if (bodyHeight >= viewportHeight) {
                 footer.classList.remove('fixed-bottom');
                 footer.classList.add('position-static');
             } else {
@@ -171,6 +197,14 @@
         // Jalankan Listener ketika website di load atau berubah ukuran
         window.addEventListener('load', updateFooterPosition);
         window.addEventListener('resize', updateFooterPosition);
+
+        // Rotasi arah panah ketika di klik
+        document.querySelectorAll('.toggle-icon').forEach(function(e) {
+            e.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                icon.classList.toggle('rotate-icon');
+            });
+        });
     </script>
 </body>
 </html>
