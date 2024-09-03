@@ -52,6 +52,12 @@
         </form>
         <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
             <a href="/" class="btn btn-secondary px-4"><i class="fa-solid fa-chevron-left"></i> Kembali</a>            
+            <nav aria-label="breadcrumb" class="align-middle ms-2">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item" ><a href="/" class="text-decoration-none">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Status Dokumen</li>
+                </ol>
+            </nav>
         </div>                
         <section class="card border-2">
             <div class="card-header bg-secondary fw-semibold pb-1" style="--bs-bg-opacity: .2;">
@@ -63,6 +69,7 @@
                 </div>
             </div>
             <div class="card-body ">
+                {{-- Form --}}
                 <form action="" method="">
                 @csrf
                 <div class="d-flex justify-content-between mb-3">
@@ -91,7 +98,7 @@
                         <span class="fw-medium ms-3">Pembuatan Rampung</span>
                     </h5>
                     <div class="d-flex flex-column">
-                        <select class="form-select bg-secondary" style="--bs-bg-opacity: .2;">
+                        <select class="form-select bg-secondary" name="status" style="--bs-bg-opacity: .2;">
                             <option value="setuju">Setuju</option>
                             <option value="perbaiki">Perbaiki</option>
                         </select>
@@ -103,7 +110,7 @@
                         <span class="fw-medium ms-3">Penandatanganan Rampung</span>
                     </h5>
                     <div class="d-flex flex-column">
-                        <select class="form-select bg-secondary" style="--bs-bg-opacity: .2;">
+                        <select class="form-select bg-secondary" name="status" style="--bs-bg-opacity: .2;">
                             <option value="setuju">Setuju</option>
                             <option value="perbaiki">Perbaiki</option>
                         </select>
@@ -115,7 +122,7 @@
                         <span class="fw-medium ms-3">Penandatanganan PPK</span>
                     </h5>
                     <div class="d-flex flex-column">
-                        <select class="form-select bg-secondary" style="--bs-bg-opacity: .2;">
+                        <select class="form-select bg-secondary" name="status" style="--bs-bg-opacity: .2;">
                             <option value="setuju">Setuju</option>
                             <option value="perbaiki">Perbaiki</option>
                         </select>
@@ -127,7 +134,7 @@
                         <span class="fw-medium ms-3">Penandatanganan Kabag Umum</span>
                     </h5>
                     <div class="d-flex flex-column">
-                        <select class="form-select bg-secondary" style="--bs-bg-opacity: .2;">
+                        <select class="form-select bg-secondary" name="status" style="--bs-bg-opacity: .2;">
                             <option value="setuju">Setuju</option>
                             <option value="perbaiki">Perbaiki</option>
                         </select>
@@ -139,7 +146,7 @@
                         <span class="fw-medium ms-3">Proses SPBY</span>
                     </h5>
                     <div class="d-flex flex-column">
-                        <select class="form-select bg-secondary" style="--bs-bg-opacity: .2;">
+                        <select class="form-select bg-secondary" name="status" style="--bs-bg-opacity: .2;">
                             <option value="setuju">Setuju</option>
                             <option value="perbaiki">Perbaiki</option>
                         </select>
@@ -151,15 +158,14 @@
                         <span class="fw-medium ms-3">Proses Transfer</span>
                     </h5>
                     <div class="d-flex flex-column">
-                        <select class="form-select bg-secondary" style="--bs-bg-opacity: .2;">
+                        <select class="form-select bg-secondary" name="status" style="--bs-bg-opacity: .2;">
                             <option value="setuju">Setuju</option>
                             <option value="perbaiki">Perbaiki</option>
                         </select>
                     </div>
                 </div>
                 <div class="w-100 d-flex justify-content-between">
-                    <a class=" btn btn-danger w-25" data-bs-toggle="modal" data-bs-target="#Hapus">Hapus <i class="fa-solid fa-trash-can"></i></i></a>
-                    <a class=" btn btn-primary w-25" data-bs-toggle="modal" data-bs-target="#konfirmasiButton">Submit <i class="fa-solid fa-chevron-right"></i></i></a>                   
+                    <a class=" btn btn-danger w-auto" data-bs-toggle="modal" data-bs-target="#Hapus">Hapus <i class="fa-solid fa-trash-can"></i></i></a>
                 </div>                
                 {{-- Confirmation Modal --}}
                 <div class="modal fade" id="konfirmasiButton" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">

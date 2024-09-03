@@ -24,6 +24,9 @@
         }
     </style>
 
+    {{-- JQuery  --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
     <title>{{ config('app.name') }} | Dokumen Baru</title>
 </head>
 <body class="m-sm-3 mt-2 mx-1">
@@ -52,6 +55,12 @@
         </form>
         <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
             <a href="/" class="btn btn-secondary px-4"><i class="fa-solid fa-chevron-left"></i> Kembali</a>            
+            <nav aria-label="breadcrumb" class="align-middle ms-2">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item" ><a href="/" class="text-decoration-none">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Status Dokumen</li>
+                </ol>
+            </nav>
         </div>                
         <section class="card border-2">
             <div class="card-header bg-secondary fw-semibold pb-1" style="--bs-bg-opacity: .2;">
@@ -66,7 +75,7 @@
                 <form action="" method="">
                 @csrf
                 <div class="d-flex justify-content-between mb-3">
-                    <h5 class="card-title link-offset-1 d-flex align-items-center">
+                    <h5 class="card-title link-offset-1 d-flex align-items-center me-2">
                         <i class="fa-solid fa-square-check fa-xl text-success"></i>
                         <span class="fw-medium ms-3">Pengajuan Nota Dinas</span>
                     </h5>
@@ -76,7 +85,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-between mb-3">
-                    <h5 class="card-title link-offset-1 d-flex align-items-center">
+                    <h5 class="card-title link-offset-1 d-flex align-items-center me-2">
                         <i class="fa-solid fa-square-check fa-xl text-success"></i>
                         <span class="fw-medium ms-3">Pengajuan Surat Dinas</span>
                     </h5>
@@ -86,7 +95,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-between mb-3">
-                    <h5 class="card-title link-offset-1 d-flex align-items-center">
+                    <h5 class="card-title link-offset-1 d-flex align-items-center me-2">
                         <i class="fa-solid fa-square-check fa-xl text-secondary"></i>
                         <span class="fw-medium ms-3">Pembuatan Rampung</span>
                     </h5>
@@ -97,8 +106,13 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="textareaContainer mb-3" style="display: none">
+                    <textarea class="form-control catatan" placeholder="Catatan" style="resize: none; height: 40px"></textarea>
+                </div>
+                
                 <div class="d-flex justify-content-between mb-3">
-                    <h5 class="card-title link-offset-1 d-flex align-items-center">
+                    <h5 class="card-title link-offset-1 d-flex align-items-center me-2">
                         <i class="fa-solid fa-square-check fa-xl text-secondary"></i>
                         <span class="fw-medium ms-3">Penandatanganan Rampung</span>
                     </h5>
@@ -109,8 +123,13 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="textareaContainer mb-3" style="display: none">
+                    <textarea class="form-control catatan" placeholder="Catatan" style="resize: none; height: 40px"></textarea>
+                </div>
+
                 <div class="d-flex justify-content-between mb-3">
-                    <h5 class="card-title link-offset-1 d-flex align-items-center">
+                    <h5 class="card-title link-offset-1 d-flex align-items-center me-2">
                         <i class="fa-solid fa-square-check fa-xl text-secondary"></i>
                         <span class="fw-medium ms-3">Penandatanganan PPK</span>
                     </h5>
@@ -121,8 +140,13 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="textareaContainer mb-3" style="display: none">
+                    <textarea class="form-control catatan" placeholder="Catatan" style="resize: none; height: 40px"></textarea>
+                </div>
+
                 <div class="d-flex justify-content-between mb-3">
-                    <h5 class="card-title link-offset-1 d-flex align-items-center">
+                    <h5 class="card-title link-offset-1 d-flex align-items-center me-2">
                         <i class="fa-solid fa-square-check fa-xl text-secondary"></i>
                         <span class="fw-medium ms-3">Penandatanganan Kabag Umum</span>
                     </h5>
@@ -133,8 +157,13 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="textareaContainer mb-3" style="display: none">
+                    <textarea class="form-control catatan" placeholder="Catatan" style="resize: none; height: 40px"></textarea>
+                </div>
+
                 <div class="d-flex justify-content-between mb-3">
-                    <h5 class="card-title link-offset-1 d-flex align-items-center">
+                    <h5 class="card-title link-offset-1 d-flex align-items-center me-2">
                         <i class="fa-solid fa-square-check fa-xl text-secondary"></i>
                         <span class="fw-medium ms-3">Proses SPBY</span>
                     </h5>
@@ -145,8 +174,13 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="textareaContainer mb-3" style="display: none">
+                    <textarea class="form-control catatan" placeholder="Catatan" style="resize: none; height: 40px"></textarea>
+                </div>
+
                 <div class="d-flex justify-content-between mb-3">
-                    <h5 class="card-title link-offset-1 d-flex align-items-center">
+                    <h5 class="card-title link-offset-1 d-flex align-items-center me-2">
                         <i class="fa-solid fa-square-xmark fa-xl text-danger"></i>                        
                         <span class="fw-medium ms-3">Proses Transfer</span>
                     </h5>
@@ -157,9 +191,13 @@
                         </select>
                     </div>
                 </div>
-                <div class="w-100 d-flex justify-content-between">
-                    <a class=" btn btn-danger w-25" data-bs-toggle="modal" data-bs-target="#Hapus">Hapus <i class="fa-solid fa-trash-can"></i></i></a>
-                    <a class=" btn btn-primary w-25" data-bs-toggle="modal" data-bs-target="#konfirmasiButton">Submit <i class="fa-solid fa-chevron-right"></i></i></a>                   
+
+                <div class="textareaContainer mb-3" style="display: none">
+                    <textarea class="form-control catatan" placeholder="Catatan" style="resize: none; height: 40px"></textarea>
+                </div>
+
+                <div class="w-100 d-flex justify-content-end">
+                    <a class=" btn btn-primary w-auto" data-bs-toggle="modal" data-bs-target="#konfirmasiButton">Submit <i class="fa-solid fa-chevron-right"></i></i></a>                   
                 </div>                
                 {{-- Confirmation Modal --}}
                 <div class="modal fade" id="konfirmasiButton" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
@@ -232,6 +270,24 @@
         // Jalankan Listener ketika website di load atau berubah ukuran
         window.addEventListener('load', updateFooterPosition);
         window.addEventListener('resize', updateFooterPosition);
+
+        // JQuery Code
+        // Memunculkan textarea ketika opsi perbaiki dipilih
+        $(document).ready(function() {
+            $('.form-select').change(function() {
+                // Cari Textarea terdekat dari select yang dipilih
+                const container = $(this).closest('.mb-3').next('.textareaContainer');
+                const textarea = container.find('.catatan');
+                
+                if ($(this).val() === 'perbaiki') {
+                    container.show();
+                    textarea.prop('required', true);
+                } else {
+                    container.hide();
+                    textarea.prop('required', false);
+                }
+            });
+        });
     </script>
 </body>
 </html>
