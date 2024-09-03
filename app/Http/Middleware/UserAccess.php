@@ -21,22 +21,17 @@ class UserAccess
             return $next($request);
 
         }else{
-            if (Auth::user()->role === 'Admin') {
+            if (Auth::user()->role === 'SuperAdmin') {
+
+                return redirect(route('superAdmin.homepage'));
+                
+            }elseif (Auth::user()->role === 'Admin') {
 
                 return redirect(route('admin.homepage'));
-                
-            }elseif (Auth::user()->role === 'Manajemen') {
 
-                return redirect(route('manajemen.homepage'));
+            }elseif (Auth::user()->role === 'PIC') {
 
-            }elseif (Auth::user()->role === 'Ketua') {
-
-                return redirect(route('ketua.homepage'));
-
-            }elseif (Auth::user()->role === 'Anggota') {
-
-                return redirect(route('anggota.homepage'));
-
+                return redirect(route('pic.homepage'));
             }
         }
     }
