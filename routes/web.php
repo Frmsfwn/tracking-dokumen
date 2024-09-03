@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Route;
@@ -28,11 +29,14 @@ Route::group(['middleware' => 'preventBackHistory'], function(){
         Route::prefix('superAdmin')->name('superAdmin.')->middleware(['userAccess:SuperAdmin'])->group(function() {
 
             route::get('/homepage', [LoginController::class, 'homepage'])->name('homepage');
+            route::get('/data/dokumen/status', [SuperAdminController::class, 'statusDokumen'])->name('status.dokumen');
 
         });
         Route::prefix('admin')->name('admin.')->middleware(['userAccess:Admin'])->group(function() {
 
-
+            route::get('/homepage', [LoginController::class, 'homepage'])->name('homepage');
+            route::get('/data/dokumen/create', [AdminController::class, 'createDokumen'])->name('create.dokumen');
+            route::get('/data/dokumen/status', [AdminController::class, 'statusDokumen'])->name('status.dokumen');
             
         });    
         Route::prefix('pic')->name('pic.')->middleware(['userAccess:PIC'])->group(function() {

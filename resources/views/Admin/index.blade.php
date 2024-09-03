@@ -51,7 +51,7 @@
             </button>
         </form>
         <div class="d-flex justify-content-between align-items-center mt-3">
-            <a href="/dokumenbaru" class="btn btn-primary ">Dokumen Baru <i class="fa-solid fa-file-circle-plus"></i></a>
+            <a href="{{ route('admin.create.dokumen') }}" class="btn btn-primary ">Dokumen Baru <i class="fa-solid fa-file-circle-plus"></i></a>
             <nav aria-label="breadcrumb" class="align-middle">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item" aria-current="page"><a href="#" class="text-decoration-none">Home</a></li>
@@ -93,7 +93,7 @@
                     </div>
                     <div class="collapse" id="dokumen1">
                         {{-- Pengulangan Timeline --}}
-                        <a href="/ubahstatus" class="text-decoration-none">
+                        <a href="{{ route('admin.status.dokumen') }}" class="text-decoration-none">
                             <div class="card-body d-flex justify-content-between">
                                 <h5 class="card-title link-offset-1 d-flex align-items-center">
                                     <i class="fa-solid fa-square-check fa-xl text-success"></i>

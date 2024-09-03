@@ -92,7 +92,7 @@
                     </div>
                     <div class="collapse" id="dokumen1">
                         {{-- Pengulangan Timeline --}}
-                        <a href="/ubahstatus" class="text-decoration-none">
+                        <a href="{{ route('superAdmin.status.dokumen') }}" class="text-decoration-none">
                             <div class="card-body d-flex justify-content-between">
                                 <h5 class="card-title link-offset-1 d-flex align-items-center">
                                     <i class="fa-solid fa-square-check fa-xl text-success"></i>

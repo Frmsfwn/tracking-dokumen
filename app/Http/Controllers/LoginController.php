@@ -155,11 +155,11 @@ class LoginController extends Controller
 
         }elseif(Auth::user()->role === 'Admin') {
 
-            return view('admin.homepage');
+            return view('admin.index');
 
         }elseif(Auth::user()->role === 'PIC') {
 
-            return view('pic.homepage');
+            return view('pic.index');
 
         }
 

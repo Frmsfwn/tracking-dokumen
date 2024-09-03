@@ -149,4 +149,11 @@ class SuperAdminController extends Controller
 
     }
 
+    function statusDokumen()
+    {
+
+        return view('SuperAdmin.ubahStatus');
+
+    }
+
 }
