@@ -48,16 +48,16 @@
     </table>
 
     {{-- Modal Tambah Data User --}}
-    <div class="modal fade" id="modalTambahData" tabindex="-1" aria-labelledby="modalTambahDataLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content container-fluid p-0 container-md">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="modalTambahDataLabel">Tambah Data User</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('create.user') }}" method="POST" class="form-card">
-                        @csrf                    
+    <form action="{{ route('create.user') }}" method="POST" class="form-card">
+        @csrf
+        <div class="modal fade" id="modalTambahData" tabindex="-1" aria-labelledby="modalTambahDataLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content container-fluid p-0 container-md">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalTambahDataLabel">Tambah Data User</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
                         <div class="row justify-content-between text-left mb-2">
                             <div class="col-sm-12 flex-column d-flex">
                                 <strong class="text-start"><label for="nip_user" class="form-label">NIP<span class="text-danger">*</span></label></strong>
@@ -109,14 +109,14 @@
                                 <div class="text-danger text-start"><small>{{ $message }}</small></div>
                             @enderror
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 
     @foreach($data_user as $dataUser)
         {{-- Modal Ubah Data User --}}
