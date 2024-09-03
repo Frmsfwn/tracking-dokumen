@@ -27,6 +27,7 @@ class RedirectIfAuthenticated
                 }elseif (Auth::user()->role === 'PIC') {
     
                     return redirect(route('pic.homepage'));
+                    
                 }
             }
         }
