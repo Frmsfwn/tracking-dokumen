@@ -14,6 +14,27 @@
 
     {{-- Custom CSS --}}
     <style>
+
+        .end-reveal {
+            right: 1rem;
+        }
+
+        .top-reveal {
+            top: 1.9rem;
+        }
+
+        @media screen and (min-width: 992px) {
+            .w-lg-50 {
+                width: 50% !important;
+            }
+        }
+
+        @media screen and (min-width: 1400px) {
+            .w-xxl-25 {
+                width: 25% !important;
+            }
+        }
+
         @media (min-width: 768px) {
             .fs-md-4 {
                 font-size: calc(1.275rem + 0.3vw) !important;
@@ -51,37 +72,37 @@
         </div>
         
         <section class="card p-4 pt-5 border-3">
-            <form action="" method="">
+            <form action="{{ route('update.password', ['User' => Auth::user()]) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="form-floating mb-3">
-                <input type="password" name="" class="form-control border-2 " id="passwordSekarang" placeholder="" aria-label="passwordSekarang" required>
-                <label for="passwordSekarang">Password Sekarang<span class="text-danger">*</span></label>
+                <input type="password" name="password_lama" id="password_lama" aria-label="password_lama" @if($errors->hasBag('ubah_password')) value="{{ old('password_lama') }}" @endif maxlength="50" autocomplete="off" autocapitalize="off" class="form-control border-2 @if($errors->ubah_password->has('password_lama')) border-danger @else border-primary @endif  @error('password_lama', 'ubah_password') is-invalid @enderror" @required(true)>
+                <label for="password_lama">Password Saat Ini<span class="text-danger">*</span></label>
                 <span class="toggle-password-icon position-absolute end-0 top-50 translate-middle-y me-3" style="cursor: pointer;">
                     <i class="fa-regular fa-eye fa-lg"></i>
                 </span>
-                @error('')
-                    <div class="text-danger"><small>{{ $message }}</small></div>
+                @error('password_lama', 'ubah_password')
+                    <div class="text-danger"><small>{{ $errors->ubah_password->first('password_lama') }}</small></div>
                 @enderror
             </div>
             <div class="form-floating mb-3">
-                <input type="password" name="password" class="form-control border-2 " id="passwordBaru" placeholder="" aria-label="passwordBaru" required>
-                <label  for="passwordBaru">Password Baru<span class="text-danger">*</span></label>
+                <input type="password" name="password_baru" id="password_baru" aria-label="password_baru" @if($errors->hasBag('ubah_password')) value="{{ old('password_baru') }}" @endif maxlength="50" autocomplete="off" autocapitalize="off" class="form-control border-2 @if($errors->ubah_password->has('password_baru')) border-danger @else border-primary @endif  @error('password_baru', 'ubah_password') is-invalid @enderror" @required(true)>
+                <label  for="password_baru">Password Baru<span class="text-danger">*</span></label>
                 <span class="toggle-password-icon position-absolute end-0 top-50 translate-middle-y me-3" style="cursor: pointer;">
                     <i class="fa-regular fa-eye fa-lg"></i>
                 </span>
-                @error('password')
-                    <div class="text-danger"><small>{{ $message }}</small></div>
+                @error('password_baru', 'ubah_password')
+                    <div class="text-danger"><small>{{ $errors->ubah_password->first('password_baru') }}</small></div>
                 @enderror
             </div>
             <div class="form-floating mb-3">
-                <input type="password" name="" class="form-control border-2 " id="passwordKonfirmasi" placeholder="" aria-label="passwordKonfirmasi" required>
-                <label for="passwordKonfirmasi">Konfirmasi Password<span class="text-danger">*</span></label>
+                <input type="password" name="konfirmasi_password" id="konfirmasi_password" aria-label="konfirmasi_password" maxlength="50" autocomplete="off" autocapitalize="off" class="form-control border-2 @if($errors->ubah_password->has('konfirmasi_password')) border-danger @else border-primary @endif  @error('konfirmasi_password', 'ubah_password') is-invalid @enderror" @required(true)>
+                <label for="konfirmasi_password">Konfirmasi Password<span class="text-danger">*</span></label>
                 <span class="toggle-password-icon position-absolute end-0 top-50 translate-middle-y me-3" style="cursor: pointer;">
                     <i class="fa-regular fa-eye fa-lg"></i>
                 </span>
-                @error('')
-                    <div class="text-danger"><small>{{ $message }}</small></div>
+                @error('konfirmasi_password', 'ubah_password')
+                    <div class="text-danger"><small>{{ $errors->ubah_password->first('konfirmasi_password') }}</small></div>
                 @enderror
             </div>
             <div class="w-100 d-flex justify-content-end ">

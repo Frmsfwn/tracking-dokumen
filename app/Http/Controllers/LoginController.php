@@ -46,19 +46,43 @@ class LoginController extends Controller
 
                 if (Auth::user()->role === 'SuperAdmin') {
 
+                    flash()
+                    ->killer(true)
+                    ->layout('bottomRight')
+                    ->timeout(3000)
+                    ->success('<b>Berhasil!</b><br>Proses login berhasil.');
+
                     return redirect(route('superAdmin.homepage'));
 
                 }elseif (Auth::user()->role === 'Admin') {
 
+                    flash()
+                    ->killer(true)
+                    ->layout('bottomRight')
+                    ->timeout(3000)
+                    ->success('<b>Berhasil!</b><br>Proses login berhasil.');
+
                     return redirect(route('admin.homepage'));
 
                 }elseif (Auth::user()->role === 'PIC') {
+
+                    flash()
+                    ->killer(true)
+                    ->layout('bottomRight')
+                    ->timeout(3000)
+                    ->success('<b>Berhasil!</b><br>Proses login berhasil.');
                     
                     return redirect(route('pic.homepage'));
 
                 }
 
             }else {
+
+                flash()
+                ->killer(true)
+                ->layout('bottomRight')
+                ->timeout(3000)
+                ->error('<b>Kesalahan!</b><br>Proses login gagal.');
 
                 return redirect(route('login'))
                     ->withErrors([
@@ -69,6 +93,12 @@ class LoginController extends Controller
             }
         }else {
 
+            flash()
+            ->killer(true)
+            ->layout('bottomRight')
+            ->timeout(3000)
+            ->error('<b>Kesalahan!</b><br>Proses login gagal.');
+
             return redirect(route('login'))
                 ->withErrors([
                     'username' => "Akun dengan username; $request->username tidak ditemukan.",
@@ -77,6 +107,44 @@ class LoginController extends Controller
 
         }
 
+    }
+
+    function editPassword()
+    {
+
+        return view('main.ubahPassword');
+
+    }
+
+    function updatePassword(User $User, Request $request)
+    {
+        $messages = [
+
+            'password_lama.required' => 'Kolom password tidak dapat kosong.',
+            'password_lama.max' => 'Kolom password maksimal berisi 16 karakter.',
+            'password_lama.current_password' => 'Password tidak sesuai',
+            'password_baru.min' => 'Password minimal berisi 8 karakter terdiri dari; huruf besar dan huruf kecil, angka, dan simbol.',
+            'password_baru.max' => 'Password maksimal berisi 16 terdiri dari; huruf besar dan huruf kecil, angka, dan simbol.',
+            'password_baru.regex' => 'Password minimal berisi 8 karakter terdiri dari; huruf besar dan huruf kecil, angka, dan simbol.',
+            'password_baru.required' => 'Password tidak dapat kosong.',
+            'konfirmasi_password.required' => 'Kolom password tidak dapat kosong.',
+            'konfirmasi_password.max' => 'Kolom password maksimal berisi 50 karakter.',
+            'konfirmasi_password.same' => 'Password tidak sesuai',
+
+        ];
+
+        Validator::make($request->input(), [
+
+            'password_lama' => 'required|max:50|current_password:web',
+            'password_baru' => ['required','min:8','max:16','regex:/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/'],
+            'konfirmasi_password' => 'required|max:50|same:password_baru',
+            
+        ],$messages)->validateWithBag('ubah_password');
+
+        $User->update([ 'password' => bcrypt($request->input('konfirmasi_password')) ]);
+
+        Auth::logout();
+        return redirect(route('login'));
     }
 
     function Homepage()

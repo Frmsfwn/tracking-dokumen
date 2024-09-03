@@ -9,12 +9,12 @@ use Illuminate\Validation\Rule;
 
 class SuperAdminController extends Controller
 {
-    function test()
+    function dataUser()
     {
 
         $data_user = User::whereNot('role','SuperAdmin')->get();
 
-        return view('SuperAdmin.data_user')
+        return view('SuperAdmin.dataUser')
             ->with('data_user',$data_user);
 
     }
@@ -42,6 +42,12 @@ class SuperAdminController extends Controller
         
         ];
 
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->error('<b>Error!</b><br>Data gagal ditambahkan.');
+
         Validator::make($request->input(), [
 
             'nip_user' => 'required|max_digits:25|numeric|unique:user,nip',
@@ -63,8 +69,14 @@ class SuperAdminController extends Controller
         ];
 
         User::create($inputeddata);
+
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('<b>Berhasil!</b><br>Data berhasil ditambahkan.');
         
-        return redirect(route('test'));
+        return redirect(route('show.user'));
 
     }
 
@@ -88,6 +100,12 @@ class SuperAdminController extends Controller
 
         ];
 
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->error('<b>Kesalahan!</b><br>Data gagal diubah.');
+
         Validator::make($request->input(), [
 
             'nip_user' => ['required','max_digits:25','numeric',Rule::unique('user','nip')->ignore($User->id)],
@@ -106,7 +124,13 @@ class SuperAdminController extends Controller
             
         ]);
 
-        return redirect(route('test'));
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('<b>Berhasil!</b><br>Data berhasil diubah.');
+
+        return redirect(route('show.user'));
 
     }
 
@@ -115,7 +139,13 @@ class SuperAdminController extends Controller
 
         User::destroy($User->id);
 
-        return redirect(route('test'));
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('<b>Berhasil!</b><br>Data berhasil dihapus.');
+
+        return redirect(route('show.user'));
 
     }
 

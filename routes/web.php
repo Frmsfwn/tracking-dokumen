@@ -45,7 +45,7 @@ Route::group(['middleware' => 'preventBackHistory'], function(){
 
 });
 
-Route::get('/data/user', [SuperAdminController::class, 'test'])->name('show.user');
+Route::get('/data/user', [SuperAdminController::class, 'dataUser'])->name('show.user');
 Route::post('/data/user/create', [SuperAdminController::class, 'createUser'])->name('create.user');
 Route::put('/data/user/{User}/update', [SuperAdminController::class, 'updateUser'])->name('update.user');
 Route::delete('/data/user/{User}/delete', [SuperAdminController::class, 'deleteUser'])->name('delete.user');
