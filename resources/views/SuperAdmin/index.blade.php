@@ -50,8 +50,7 @@
                 <i class="fa-solid fa-magnifying-glass fa-lg text-primary"></i>
             </button>
         </form>
-        <div class="d-flex justify-content-between align-items-center mt-3">
-            <button type="button" class="btn btn-primary">Dokumen Baru</button>
+        <div class="d-flex justify-content-end align-items-center mt-3">
             <nav aria-label="breadcrumb" class="align-middle">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item" aria-current="page"><a href="#" class="text-decoration-none">Home</a></li>
@@ -93,16 +92,18 @@
                     </div>
                     <div class="collapse" id="dokumen1">
                         {{-- Pengulangan Timeline --}}
-                        <div class="card-body d-flex justify-content-between">
-                            <h5 class="card-title link-offset-1 d-flex align-items-center">
-                                <i class="fa-solid fa-square-check fa-xl text-success"></i>
-                                <span class="text-decoration-underline fw-medium ms-3">Pengajuan Nota Dinas</span>
-                            </h5>
-                            <div class="d-flex flex-column">
-                                <span class="fw-medium">(Admin SPPD 1)</span>
-                                <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">10 Agustus 2024 10:00</small>
+                        <a href="/ubahstatus" class="text-decoration-none">
+                            <div class="card-body d-flex justify-content-between">
+                                <h5 class="card-title link-offset-1 d-flex align-items-center">
+                                    <i class="fa-solid fa-square-check fa-xl text-success"></i>
+                                    <span class="text-decoration-underline fw-medium ms-3 text-black">Pengajuan Nota Dinas</span>
+                                </h5>
+                                <div class="d-flex flex-column">
+                                    <span class="fw-medium text-black">(Admin SPPD 1)</span>
+                                    <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">10 Agustus 2024 10:00</small>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="card-footer text-dark-emphasis" style="background-color: rgba(217, 217, 217, 1);">Urusan Umum dan Kepegawaian - Sistem Informasi</div>
                 </div>
@@ -125,16 +126,18 @@
                     </div>
                     <div class="collapse" id="dokumen2">
                         {{-- Pengulangan Timeline --}}
-                        <div class="card-body d-flex justify-content-between">
-                            <h5 class="card-title link-offset-1 d-flex align-items-center">
-                                <i class="fa-solid fa-square-check fa-xl text-success"></i>
-                                <span class="text-decoration-underline fw-medium ms-3">Pengajuan Nota Dinas</span>
-                            </h5>
-                            <div class="d-flex flex-column">
-                                <span class="fw-medium">(Admin SPPD 1)</span>
-                                <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">10 Agustus 2024 10:00</small>
+                        <a href="/ubahstatus" class="text-decoration-none">
+                            <div class="card-body d-flex justify-content-between">
+                                <h5 class="card-title link-offset-1 d-flex align-items-center">
+                                    <i class="fa-solid fa-square-check fa-xl text-success"></i>
+                                    <span class="text-decoration-underline fw-medium ms-3 text-black">Pengajuan Nota Dinas</span>
+                                </h5>
+                                <div class="d-flex flex-column">
+                                    <span class="fw-medium text-black">(Admin SPPD 1)</span>
+                                    <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">10 Agustus 2024 10:00</small>
+                                </div>
                             </div>
-                        </div>
+                        </a> 
                     </div>
                     <div class="card-footer text-dark-emphasis" style="background-color: rgba(217, 217, 217, 1);">Urusan Umum dan Kepegawaian - Sistem Informasi</div>
                 </div>
