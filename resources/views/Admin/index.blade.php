@@ -44,8 +44,8 @@
                     admin
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="/ubahpassword">Ubah Password</a></li>
-                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    <li><a class="dropdown-item" href="{{ route('edit.password') }}">Ubah Password</a></li>
+                    <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -59,7 +59,7 @@
             </button>
         </form>
         <div class="d-flex justify-content-between align-items-center mt-3">
-            <a href="{{ route('admin.create.dokumen') }}" class="btn btn-primary ">Dokumen Baru <i class="fa-solid fa-file-circle-plus"></i></a>
+            <a href="{{ route('admin.create.dokumen') }}" class="rounded-pill btn btn-primary ">Dokumen Baru <i class="fa-solid fa-plus"></i></a>
             <nav aria-label="breadcrumb" class="align-middle">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item" aria-current="page"><a href="#" class="text-decoration-none">Home</a></li>

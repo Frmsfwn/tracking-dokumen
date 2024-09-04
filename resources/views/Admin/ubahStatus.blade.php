@@ -39,8 +39,8 @@
                     admin
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="/ubahpassword">Ubah Password</a></li>
-                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    <li><a class="dropdown-item" href="{{ route('edit.password') }}">Ubah Password</a></li>
+                    <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -54,7 +54,7 @@
             </button>
         </form>
         <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
-            <a href="/" class="btn btn-secondary px-4"><i class="fa-solid fa-chevron-left"></i> Kembali</a>            
+            <a href="/" class="rounded-pill btn btn-secondary px-4"><i class="fa-solid fa-chevron-left"></i> Kembali</a>            
             <nav aria-label="breadcrumb" class="align-middle ms-2">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item" ><a href="/" class="text-decoration-none">Home</a></li>
@@ -62,7 +62,7 @@
                 </ol>
             </nav>
         </div>                
-        <section class="card border-2">
+        <section class="card border-1 border-primary-subtle">
             <div class="card-header bg-secondary fw-semibold pb-1" style="--bs-bg-opacity: .2;">
                 <div class="d-flex justify-content-between">                                           
                     <h5 class="text-black">Ubah Status</h5>                    
@@ -72,132 +72,199 @@
                 </div>
             </div>
             <div class="card-body ">
+                {{-- FORM --}}
                 <form action="" method="">
                 @csrf
-                <div class="d-flex justify-content-between mb-3">
-                    <h5 class="card-title link-offset-1 d-flex align-items-center me-2">
-                        <i class="fa-solid fa-square-check fa-xl text-success"></i>
-                        <span class="fw-medium ms-3">Pengajuan Nota Dinas</span>
-                    </h5>
-                    <div class="d-flex flex-column">
-                        <span class="fw-medium">(Admin SPPD 1)</span>
-                        <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">10 Agustus 2024 10:00</small>
+                <div class="row gy-2 justify-content-between mb-3">
+                    <div class="col-12 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-square-check fa-2xl text-success"></i>
+                            </div>
+                            <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
+                                <span class="fw-medium text-black mb-1">Pengajuan Nota Dinas</span>                                
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-auto">
+                        <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
+                            <span class="fw-medium text-black">(Admin SPPD 1)</span>
+                            <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">10 Agustus 2024 10:00</small>
+                        </div>
                     </div>
                 </div>
-                <div class="d-flex justify-content-between mb-3">
-                    <h5 class="card-title link-offset-1 d-flex align-items-center me-2">
-                        <i class="fa-solid fa-square-check fa-xl text-success"></i>
-                        <span class="fw-medium ms-3">Pengajuan Surat Dinas</span>
-                    </h5>
-                    <div class="d-flex flex-column">
-                        <span class="fw-medium">(Admin SPPD 1)</span>
-                        <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">10 Agustus 2024 10:00</small>
+
+                <div class="row gy-2 justify-content-between mb-3">
+                    <div class="col-12 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-square-check fa-2xl text-success"></i>
+                            </div>
+                            <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
+                                <span class="fw-medium text-black mb-1">Pengajuan Surat Dinas</span>                                
+                            </h5>
+                        </div>
+                    </div>                    
+                    <div class="col-12 col-sm-auto">
+                        <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
+                            <span class="fw-medium text-black">(Admin SPPD 1)</span>
+                            <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">10 Agustus 2024 10:00</small>
+                        </div>
                     </div>
                 </div>
-                <div class="d-flex justify-content-between mb-3">
-                    <h5 class="card-title link-offset-1 d-flex align-items-center me-2">
-                        <i class="fa-solid fa-square-check fa-xl text-secondary"></i>
-                        <span class="fw-medium ms-3">Pembuatan Rampung</span>
-                    </h5>
-                    <div class="d-flex flex-column">
+
+                <div class="row gy-2 justify-content-between mb-3">
+                    <div class="col-12 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-square-check fa-2xl text-secondary"></i>
+                            </div>
+                            <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
+                                <span class="fw-medium text-black mb-1">Pembuatan Rampung</span>                                
+                            </h5>
+                        </div>
+                    </div>                    
+                    <div class="col-12 col-sm-auto">
+                        <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
                         <select class="form-select bg-secondary" style="--bs-bg-opacity: .2;">
                             <option value="setuju">Setuju</option>
                             <option value="perbaiki">Perbaiki</option>
                         </select>
-                    </div>
+                        </div>
+                    </div>                    
                 </div>
 
                 <div class="textareaContainer mb-3" style="display: none">
-                    <textarea class="form-control catatan" placeholder="Catatan" style="resize: none; height: 40px"></textarea>
+                    <textarea class="form-control catatan border-2 border-primary-subtle" placeholder="Catatan" style="resize: none; height: 100px"></textarea>
                 </div>
                 
-                <div class="d-flex justify-content-between mb-3">
-                    <h5 class="card-title link-offset-1 d-flex align-items-center me-2">
-                        <i class="fa-solid fa-square-check fa-xl text-secondary"></i>
-                        <span class="fw-medium ms-3">Penandatanganan Rampung</span>
-                    </h5>
-                    <div class="d-flex flex-column">
-                        <select class="form-select bg-secondary" style="--bs-bg-opacity: .2;">
-                            <option value="setuju">Setuju</option>
-                            <option value="perbaiki">Perbaiki</option>
-                        </select>
-                    </div>
+                <div class="row gy-2 justify-content-between mb-3">
+                    <div class="col-12 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-square-check fa-2xl text-secondary"></i>
+                            </div>
+                            <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
+                                <span class="fw-medium text-black mb-1">Penandatanganan Rampung</span>                                
+                            </h5>
+                        </div>
+                    </div>                    
+                    <div class="col-12 col-sm-auto">
+                        <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">                            
+                            <select class="form-select bg-secondary" style="--bs-bg-opacity: .2;">
+                                <option value="setuju">Setuju</option>
+                                <option value="perbaiki">Perbaiki</option>
+                            </select>
+                        </div>
+                    </div>                      
                 </div>
 
                 <div class="textareaContainer mb-3" style="display: none">
-                    <textarea class="form-control catatan" placeholder="Catatan" style="resize: none; height: 40px"></textarea>
+                    <textarea class="form-control catatan border-2 border-primary-subtle" placeholder="Catatan" style="resize: none; height: 100px"></textarea>
                 </div>
 
-                <div class="d-flex justify-content-between mb-3">
-                    <h5 class="card-title link-offset-1 d-flex align-items-center me-2">
-                        <i class="fa-solid fa-square-check fa-xl text-secondary"></i>
-                        <span class="fw-medium ms-3">Penandatanganan PPK</span>
-                    </h5>
-                    <div class="d-flex flex-column">
-                        <select class="form-select bg-secondary" style="--bs-bg-opacity: .2;">
-                            <option value="setuju">Setuju</option>
-                            <option value="perbaiki">Perbaiki</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="textareaContainer mb-3" style="display: none">
-                    <textarea class="form-control catatan" placeholder="Catatan" style="resize: none; height: 40px"></textarea>
-                </div>
-
-                <div class="d-flex justify-content-between mb-3">
-                    <h5 class="card-title link-offset-1 d-flex align-items-center me-2">
-                        <i class="fa-solid fa-square-check fa-xl text-secondary"></i>
-                        <span class="fw-medium ms-3">Penandatanganan Kabag Umum</span>
-                    </h5>
-                    <div class="d-flex flex-column">
-                        <select class="form-select bg-secondary" style="--bs-bg-opacity: .2;">
-                            <option value="setuju">Setuju</option>
-                            <option value="perbaiki">Perbaiki</option>
-                        </select>
-                    </div>
+                <div class="row gy-2 justify-content-between mb-3">
+                    <div class="col-12 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-square-check fa-2xl text-secondary"></i>
+                            </div>
+                            <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
+                                <span class="fw-medium text-black mb-1">Penandatanganan PPK</span>                                
+                            </h5>
+                        </div>
+                    </div>                    
+                    <div class="col-12 col-sm-auto">
+                        <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">                            
+                            <select class="form-select bg-secondary" style="--bs-bg-opacity: .2;">
+                                <option value="setuju">Setuju</option>
+                                <option value="perbaiki">Perbaiki</option>
+                            </select>
+                        </div>
+                    </div>                        
                 </div>
 
                 <div class="textareaContainer mb-3" style="display: none">
-                    <textarea class="form-control catatan" placeholder="Catatan" style="resize: none; height: 40px"></textarea>
+                    <textarea class="form-control catatan border-2 border-primary-subtle" placeholder="Catatan" style="resize: none; height: 100px"></textarea>
                 </div>
 
-                <div class="d-flex justify-content-between mb-3">
-                    <h5 class="card-title link-offset-1 d-flex align-items-center me-2">
-                        <i class="fa-solid fa-square-check fa-xl text-secondary"></i>
-                        <span class="fw-medium ms-3">Proses SPBY</span>
-                    </h5>
-                    <div class="d-flex flex-column">
-                        <select class="form-select bg-secondary" style="--bs-bg-opacity: .2;">
-                            <option value="setuju">Setuju</option>
-                            <option value="perbaiki">Perbaiki</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="textareaContainer mb-3" style="display: none">
-                    <textarea class="form-control catatan" placeholder="Catatan" style="resize: none; height: 40px"></textarea>
-                </div>
-
-                <div class="d-flex justify-content-between mb-3">
-                    <h5 class="card-title link-offset-1 d-flex align-items-center me-2">
-                        <i class="fa-solid fa-square-xmark fa-xl text-danger"></i>                        
-                        <span class="fw-medium ms-3">Proses Transfer</span>
-                    </h5>
-                    <div class="d-flex flex-column">
-                        <select class="form-select bg-secondary" style="--bs-bg-opacity: .2;">
-                            <option value="setuju">Setuju</option>
-                            <option value="perbaiki">Perbaiki</option>
-                        </select>
-                    </div>
+                <div class="row gy-2 justify-content-between mb-3">
+                    <div class="col-12 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-square-check fa-2xl text-secondary"></i>
+                            </div>
+                            <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
+                                <span class="fw-medium text-black mb-1">Penandatanganan Kabag Umum</span>                                
+                            </h5>
+                        </div>
+                    </div>                    
+                    <div class="col-12 col-sm-auto">
+                        <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column"> 
+                            <select class="form-select bg-secondary" style="--bs-bg-opacity: .2;">
+                                <option value="setuju">Setuju</option>
+                                <option value="perbaiki">Perbaiki</option>
+                            </select>
+                        </div>
+                    </div>                    
                 </div>
 
                 <div class="textareaContainer mb-3" style="display: none">
-                    <textarea class="form-control catatan" placeholder="Catatan" style="resize: none; height: 40px"></textarea>
+                    <textarea class="form-control catatan border-2 border-primary-subtle" placeholder="Catatan" style="resize: none; height: 100px"></textarea>
                 </div>
 
-                <div class="w-100 d-flex justify-content-end">
-                    <a class=" btn btn-primary w-auto" data-bs-toggle="modal" data-bs-target="#konfirmasiButton">Submit <i class="fa-solid fa-chevron-right"></i></i></a>                   
+                <div class="row gy-2 justify-content-between mb-3">
+                    <div class="col-12 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-square-check fa-2xl text-secondary"></i>
+                            </div>
+                            <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
+                                <span class="fw-medium text-black mb-1">Proses SPBY</span>                                
+                            </h5>
+                        </div>
+                    </div>                    
+                    <div class="col-12 col-sm-auto">
+                        <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
+                            <select class="form-select bg-secondary" style="--bs-bg-opacity: .2;">
+                                <option value="setuju">Setuju</option>
+                                <option value="perbaiki">Perbaiki</option>
+                            </select>                            
+                        </div>
+                    </div>                      
+                </div>
+
+                <div class="textareaContainer mb-3" style="display: none">
+                    <textarea class="form-control catatan border-2 border-primary-subtle" placeholder="Catatan" style="resize: none; height: 100px"></textarea>
+                </div>
+
+                <div class="row gy-2 justify-content-between mb-3">
+                    <div class="col-12 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-square-xmark fa-2xl text-danger"></i>
+                            </div>
+                            <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
+                                <span class="fw-medium text-black mb-1">Proses Transfer</span>                                                                
+                            </h5>
+                        </div>
+                    </div>                    
+                    <div class="col-12 col-sm-auto">
+                        <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
+                            <select class="form-select bg-secondary" style="--bs-bg-opacity: .2;">
+                                <option value="setuju">Setuju</option>
+                                <option value="perbaiki">Perbaiki</option>
+                            </select>                            
+                        </div>
+                    </div>
+                </div>
+                <div class="textareaContainer mb-3" style="display: none">
+                    <textarea class="form-control catatan border-2 border-primary-subtle" placeholder="Catatan" style="resize: none; height: 100px"></textarea>
+                </div>
+
+
+                <div class="w-100 d-flex justify-content-end mt-5">
+                    <a class="rounded-pill btn btn-primary w-auto " data-bs-toggle="modal" data-bs-target="#konfirmasiButton">Submit <i class="fa-solid fa-chevron-right"></i></i></a>                   
                 </div>                
                 {{-- Confirmation Modal --}}
                 <div class="modal fade" id="konfirmasiButton" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
@@ -211,35 +278,13 @@
                                 <strong>Apakah anda yakin ingin Mengubah Status?</strong><br>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                                <button type="submit" class="btn btn-primary">Submit <i class="fa-solid fa-chevron-right"></i></button>
+                                <button type="button" class="rounded-pill btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                                <button type="submit" class="rounded-pill btn btn-primary">Submit <i class="fa-solid fa-chevron-right"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
                 </form>
-                {{-- Delete Modal --}}
-                <div class="modal fade" id="Hapus" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="ubahLabel">Hapus dokumen</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body text-center">
-                                <strong>Apakah anda yakin ingin mnghapus Dokumen?</strong><br>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                                <form action="">
-                                @csrf
-                                @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Hapus <i class="fa-solid fa-trash-can"></i></i></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>            
         </section>
         {{-- Pagination --}}

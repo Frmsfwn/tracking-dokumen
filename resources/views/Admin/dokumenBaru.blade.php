@@ -36,8 +36,8 @@
                     admin
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="/ubahpassword">Ubah Password</a></li>
-                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    <li><a class="dropdown-item" href="{{ route('edit.password') }}">Ubah Password</a></li>
+                    <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -51,7 +51,7 @@
             </button>
         </form>
         <div class="d-flex justify-content-between align-items-center mt-3">
-            <a href="/" class="btn btn-secondary px-4"><i class="fa-solid fa-chevron-left"></i> Kembali</a>
+            <a href="/" class="rounded-pill btn btn-secondary px-4"><i class="fa-solid fa-chevron-left"></i> Kembali</a>
             <nav aria-label="breadcrumb" class="align-middle">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item" ><a href="/" class="text-decoration-none">Home</a></li>
@@ -60,7 +60,7 @@
             </nav>
         </div>
         <div class="d-flex mt-3 mb-3 justify-content-between">
-            <h5 class="fs-5 text-semibold">Dokumen Baru</h5>            
+            <h5 class="fs-5 text-semibold"><i class="fa-solid fa-file-circle-plus"></i> Dokumen Baru</h5>            
         </div>
         <section class="card p-4 border-3">
             <form action="" method="">
@@ -95,18 +95,18 @@
                 </div>
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Tanggal Dinas</label>
-                    <div class="col-sm-3 col-5">
+                    <div class="col-sm-3 col-12">
                         <input type="date" class="form-control border-2" name="" id="" > 
                     </div>
-                    <div class="col-sm-1 col-2">
+                    <div class="col-sm-1 col-12">
                         <p class="text-center mt-2">s.d.</p>
                     </div>
-                    <div class="col-sm-3 col-5">
+                    <div class="col-sm-3 col-12">
                         <input type="date" class="form-control border-2" name="" id="" > 
                     </div>
                 </div>
                 <div class="w-100 d-flex justify-content-end">
-                    <button  type="submit" class=" btn btn-primary ">Submit <i class="fa-solid fa-chevron-right"></i></button>                
+                    <button  type="submit" class="rounded-pill btn btn-primary ">Submit <i class="fa-solid fa-chevron-right"></i></button>                
                 </div>                
             </form>
             
