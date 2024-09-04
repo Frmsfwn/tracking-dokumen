@@ -76,7 +76,7 @@ class SuperAdminController extends Controller
         ->timeout(3000)
         ->success('<b>Berhasil!</b><br>Data berhasil ditambahkan.');
         
-        return redirect(route('show.user'));
+        return redirect(route('superAdmin.show.user'));
 
     }
 
@@ -130,7 +130,7 @@ class SuperAdminController extends Controller
         ->timeout(3000)
         ->success('<b>Berhasil!</b><br>Data berhasil diubah.');
 
-        return redirect(route('show.user'));
+        return redirect(route('superAdmin.show.user'));
 
     }
 
@@ -145,7 +145,7 @@ class SuperAdminController extends Controller
         ->timeout(3000)
         ->success('<b>Berhasil!</b><br>Data berhasil dihapus.');
 
-        return redirect(route('show.user'));
+        return redirect(route('superAdmin.show.user'));
 
     }
 
