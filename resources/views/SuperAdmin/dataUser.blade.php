@@ -17,6 +17,25 @@
         .top-reveal {
             top: 1.3rem;
         }
+        .rotate-icon {
+            transform: rotate(180deg);
+        }
+
+        i.fa-solid {
+            transition: transform 0.3s ease;
+        }
+        
+        @media (min-width: 768px) {
+            .fs-md-4 {
+                font-size: calc(1.275rem + 0.3vw) !important;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .container-md {
+                max-width: 720px !important;
+            }
+        }
     </style>
 
     {{-- JQuery --}}
@@ -27,37 +46,125 @@
 
     <title>{{ config('app.name') }} | Data User</title>
 </head>
-<body>
-    <a href="/" class="btn btn-secondary" >Kembali</a>
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahData">Tambah Data</button>
+<body class="container-md mt-3">
+    {{-- Navbar --}}
+    <nav class="navbar">
+        <div class="container-md">
+            <span class="navbar-brand mb-0 fs-5 fs-md-4 me-2 me-sm-3"><i class="fa-regular fa-clock fa-sm me-2"></i>Document Tracking - PSG</span>
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-body-secondary fw-medium text-capitalize" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    admin
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="{{ route('edit.password') }}">Ubah Password</a></li>
+                    <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="container-md mt-3">
+        {{-- Pencarian --}}
+        <form action="" class="position-relative">
+            <input type="text" class="form-control border-primary-subtle" role="search" placeholder="Pencarian" aria-label="search" id="search" aria-describedby="search">
+            <button type="submit" class="btn btn-focus position-absolute end-0 top-50 translate-middle-y" style="border-color: transparent">
+                <i class="fa-solid fa-magnifying-glass fa-lg text-primary"></i>
+            </button>
+        </form>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">NIP</th>
-                <th scope="col">Nama</th>
-                <th scope="col">Username</th>
-                <th scope="col">Role</th>
-                <th scope="col" colspan="2">Opsi</th>
-            </tr>
-        </thead>
-        <tbody>
+        <div class="d-flex mt-3 mb-3 justify-content-between">
+            <h5 class="fs-5 text-semibold">Daftar User</h5>
+            <div>
+                <a href="" class="bg-secondary-subtle py-1 px-2 text-black text-decoration-none rounded-5">Admin</a>
+                <a href="" class="bg-secondary-subtle py-1 px-2 text-black text-decoration-none rounded-5">PIV</a>
+                <a href="" class="bg-secondary-subtle py-1 px-2 text-black text-decoration-none rounded-5">Semua</a>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <a href="/" class="btn btn-secondary" >Kembali</a>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahData">Tambah Data</button>
+        </div>
+        <div class="row row-cols-1 row-cols-sm-2">
+            {{-- card user admin --}}
             @forelse($data_user as $dataUser)
-                <tr>
-                    <td>{{ $dataUser->nip }}</td>
-                    <td>{{ $dataUser->nama }}</td>
-                    <td>{{ $dataUser->username }}</td>
-                    <td>{{ $dataUser->role }}</td>
-                    <td>
-                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUbahData{{ $dataUser->id }}">Ubah</button>
-                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalHapusData{{ $dataUser->id }}">Hapus</button>
-                    </td>
-                </tr>
+            <div class="col">
+                <div class="card mb-4">
+
+                    <div class="card-header text-bg-warning fw-semibold">
+                        <div class="row align-items-center">
+                            <div class="col-10 col-sm-11">                                
+                                <div class="d-grid ">
+                                    <span class="fs-5">{{ $dataUser->nama }}</span>
+                                    <small class="text-secondary fw-normal text-decoration-underline">NIP : {{ $dataUser->nip }}</small>
+                                </div>                                    
+                            </div>
+                            <div class="col-2 col-sm-1 text-center">
+                                <a class="text-black toggle-icon" data-bs-toggle="collapse" href="#{{ $dataUser->nip }}" role="button" aria-expanded="false" aria-controls="dokumen1"><i class="fa-solid fa-angle-up"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                        {{-- isi data admin --}}
+                    <section class="collapse" id="{{$dataUser->nip }}">
+                        <ul class="list-group list-group-flush">                                    
+                            <li class="list-group-item">
+                                <h5 class="card-title">Username</h5> 
+                                <h6 class="card-text">{{ $dataUser->username }}</h6>
+                            </li>
+                            <li class="list-group-item">
+                                <h5 class="card-title">Role</h5> 
+                                <h6 class="card-text">{{ $dataUser->role }}</h6>
+                            </li>                                             
+                            <li class="list-group-item"> 
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-warning w-50 me-1" data-bs-toggle="modal" data-bs-target="#modalUbahData{{ $dataUser->id }}">Ubah</button>
+                                    <button class="btn btn-danger w-50 ms-1" data-bs-toggle="modal" data-bs-target="#modalHapusData{{ $dataUser->id }}">Hapus</button>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
             @empty
                 <h2>Data Kosong!</h2>
             @endforelse
-        </tbody>
-    </table>
+        </div>
+        {{-- Pagination --}}
+        <div id="pagination-links"></div>
+    </main>
+    <footer class="footer z-n1 fixed-bottom m-3 fw-medium text-secondary text-center">Copyright &copy; Pusat Survei Geologi, 2024</footer>
+
+    {{-- Icon FontAwesome --}}
+    <script src="https://kit.fontawesome.com/e814145206.js" crossorigin="anonymous"></script>
+
+    {{-- Javascript --}}
+    <script>
+        // Ubah posisi footer tergantung pada panjang body
+        function updateFooterPosition() {
+            const bodyHeight = document.body.scrollHeight;
+            const viewportHeight = window.innerHeight;
+            const footer = document.querySelector('.footer');
+
+            if (bodyHeight >= viewportHeight) {
+                footer.classList.remove('fixed-bottom');
+                footer.classList.add('position-static');
+            } else {
+                footer.classList.remove('position-static');
+                footer.classList.add('fixed-bottom');
+            }
+        }
+
+        // Jalankan Listener ketika website di load atau berubah ukuran
+        window.addEventListener('load', updateFooterPosition);
+        window.addEventListener('resize', updateFooterPosition);
+
+        // Rotasi arah panah ketika di klik
+        document.querySelectorAll('.toggle-icon').forEach(function(e) {
+            e.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                icon.classList.toggle('rotate-icon');
+            });
+        });
+    </script>
 
     {{-- Modal Tambah Data User --}}
     <form action="{{ route('superAdmin.create.user') }}" method="POST" class="form-card">
