@@ -30,6 +30,10 @@ Route::group(['middleware' => 'preventBackHistory'], function(){
 
             route::get('/homepage', [LoginController::class, 'homepage'])->name('homepage');
             route::get('/data/dokumen/status', [SuperAdminController::class, 'statusDokumen'])->name('status.dokumen');
+            route::get('/data/user', [SuperAdminController::class, 'dataUser'])->name('show.user');
+            route::post('/data/user/create', [SuperAdminController::class, 'createUser'])->name('create.user');
+            route::put('/data/user/{User}/update', [SuperAdminController::class, 'updateUser'])->name('update.user');
+            route::delete('/data/user/{User}/delete', [SuperAdminController::class, 'deleteUser'])->name('delete.user');
 
         });
         Route::prefix('admin')->name('admin.')->middleware(['userAccess:Admin'])->group(function() {
@@ -48,8 +52,3 @@ Route::group(['middleware' => 'preventBackHistory'], function(){
     });
 
 });
-
-Route::get('/data/user', [SuperAdminController::class, 'dataUser'])->name('show.user');
-Route::post('/data/user/create', [SuperAdminController::class, 'createUser'])->name('create.user');
-Route::put('/data/user/{User}/update', [SuperAdminController::class, 'updateUser'])->name('update.user');
-Route::delete('/data/user/{User}/delete', [SuperAdminController::class, 'deleteUser'])->name('delete.user');

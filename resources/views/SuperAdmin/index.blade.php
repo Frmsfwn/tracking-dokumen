@@ -44,6 +44,7 @@
                     admin
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="{{ route('superAdmin.show.user') }}">Data User</a></li>
                     <li><a class="dropdown-item" href="{{ route('edit.password') }}">Ubah Password</a></li>
                     <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
                 </ul>

@@ -28,6 +28,7 @@
     <title>{{ config('app.name') }} | Data User</title>
 </head>
 <body>
+    <a href="/" class="btn btn-secondary" >Kembali</a>
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahData">Tambah Data</button>
 
     <table class="table table-striped">
@@ -59,7 +60,7 @@
     </table>
 
     {{-- Modal Tambah Data User --}}
-    <form action="{{ route('create.user') }}" method="POST" class="form-card">
+    <form action="{{ route('superAdmin.create.user') }}" method="POST" class="form-card">
         @csrf
         <div class="modal fade" id="modalTambahData" tabindex="-1" aria-labelledby="modalTambahDataLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -139,7 +140,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('update.user', ['User' => $dataUser]) }}" method="POST" class="form-card">
+                        <form action="{{ route('superAdmin.update.user', ['User' => $dataUser]) }}" method="POST" class="form-card">
                             @csrf
                             @method('PUT')
                             <div class="row justify-content-between text-left mb-2">
@@ -209,7 +210,7 @@
                         <b>{{ $dataUser->nama }} (NIP:{{ $dataUser->nip }})</b>
                     </div>
                     <div class="modal-footer">
-                        <form action="{{ route('delete.user', ['User' => $dataUser]) }}" method="POST">
+                        <form action="{{ route('superAdmin.delete.user', ['User' => $dataUser]) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Hapus</button>
