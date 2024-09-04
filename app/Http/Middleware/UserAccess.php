@@ -32,6 +32,7 @@ class UserAccess
             }elseif (Auth::user()->role === 'PIC') {
 
                 return redirect(route('pic.homepage'));
+                
             }
         }
     }
