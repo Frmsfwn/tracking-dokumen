@@ -9,6 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         $data_tim_teknis = [
+
             'Sistem Informasi dan Humas',
             'Perpustakaan, Ketatausahaan dan Kearsipan',
             'Perencanaan',
@@ -23,6 +24,7 @@ return new class extends Migration
             'Geopark Nasional dan Pusat Informasi Geologi',
             'Warisan Geologi',
             'Pengembangan Konsep Geosains',
+            
         ];
 
         Schema::create('dokumen', function (Blueprint $table) use ($data_tim_teknis) {
@@ -31,6 +33,7 @@ return new class extends Migration
             $table->enum('tim_teknis',$data_tim_teknis);
             $table->date('tanggal_awal_dinas');
             $table->date('tanggal_akhir_dinas');
+            $table->integer('sisa_hari')->nullable();
             $table->timestamps();
         });
     }

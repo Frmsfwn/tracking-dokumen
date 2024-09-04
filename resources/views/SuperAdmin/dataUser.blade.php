@@ -114,8 +114,8 @@
                         <div class="col-sm-12 flex-column d-flex">
                             <strong class="text-start"><label for="role" class="form-label">Role<span class="text-danger">*</span></label></strong>
                             <select id="role" name="role" class="form-select @error('role', 'tambah_data') is-invalid @enderror" @required(true)>
-                                <option value="Admin" @selected(old('version') === 'Admin')>Admin</option>
-                                <option value="PIC" @selected(old('version') === 'PIC')>PIC</option>
+                                <option value="Admin" @selected(old('role') === 'Admin')>Admin</option>
+                                <option value="PIC" @selected(old('role') === 'PIC')>PIC</option>
                             </select>
                             @error('role', 'tambah_data')
                                 <div class="text-danger text-start"><small>{{ $message }}</small></div>

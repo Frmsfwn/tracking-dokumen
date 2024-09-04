@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dokumen;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -155,7 +156,10 @@ class LoginController extends Controller
 
         }elseif(Auth::user()->role === 'Admin') {
 
-            return view('admin.index');
+            $data_dokumen = Dokumen::all();
+
+            return view('admin.index')
+                ->with('data_dokumen',$data_dokumen);
 
         }elseif(Auth::user()->role === 'PIC') {
 

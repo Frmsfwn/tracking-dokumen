@@ -40,6 +40,7 @@ Route::group(['middleware' => 'preventBackHistory'], function(){
 
             route::get('/homepage', [LoginController::class, 'homepage'])->name('homepage');
             route::get('/data/dokumen/create', [AdminController::class, 'createDokumen'])->name('create.dokumen');
+            route::post('/data/dokumen/store', [AdminController::class, 'storeDokumen'])->name('store.dokumen');
             route::get('/data/dokumen/status', [AdminController::class, 'statusDokumen'])->name('status.dokumen');
             
         });    
