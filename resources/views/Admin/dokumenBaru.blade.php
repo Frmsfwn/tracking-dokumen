@@ -51,7 +51,7 @@
             </button>
         </form>
         <div class="d-flex justify-content-between align-items-center mt-3">
-            <a href="/" class="rounded-pill btn btn-secondary px-4"><i class="fa-solid fa-chevron-left"></i> Kembali</a>
+            <a href="/" class="rounded-3 btn btn-secondary px-4"><i class="fa-solid fa-chevron-left"></i> Kembali</a>
             <nav aria-label="breadcrumb" class="align-middle">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item" ><a href="/" class="text-decoration-none">Home</a></li>
@@ -117,7 +117,7 @@
                     </div>
                 </div>
                 <div class="w-100 d-flex justify-content-end">
-                    <button  type="submit" class="rounded-pill btn btn-primary ">Submit <i class="fa-solid fa-chevron-right"></i></button>                
+                    <button  type="submit" class="rounded-3 btn btn-primary ">Submit <i class="fa-solid fa-chevron-right"></i></button>                
                 </div>                
             </form>
             

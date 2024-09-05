@@ -78,13 +78,13 @@
 
             <div class="col-12 col-sm-8 text-sm-end">
                 <a href="" class="bg-secondary-subtle py-1 px-2 text-black text-decoration-none rounded-5">Admin</a>
-                <a href="" class="bg-secondary-subtle py-1 px-2 text-black text-decoration-none rounded-5">PIV</a>
+                <a href="" class="bg-secondary-subtle py-1 px-2 text-black text-decoration-none rounded-5">PIC</a>
                 <a href="" class="bg-secondary-subtle py-1 px-2 text-black text-decoration-none rounded-5">Semua</a>
             </div>
         </div>
         <div class="d-flex justify-content-between mb-3">
-            <a href="/" class="btn btn-secondary" ><i class="fa-solid fa-chevron-left "></i> Kembali</a>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahData"><i class="fa-solid fa-user-plus"></i> Tambah Data</button>
+            <a href="/" class="btn btn-secondary rounded-3" ><i class="fa-solid fa-chevron-left "></i> Kembali</a>
+            <button class="btn btn-primary rounded-3" data-bs-toggle="modal" data-bs-target="#modalTambahData"><i class="fa-solid fa-user-plus"></i> Tambah Data</button>
         </div>
         <section class="row row-cols-1 row-cols-sm-2 g-2">
             {{-- card user admin --}}
@@ -121,8 +121,8 @@
                             </li>                                             
                             <li class="list-group-item"> 
                                 <div class="d-flex justify-content-between">
-                                    <button class="btn btn-warning w-50 me-1" data-bs-toggle="modal" data-bs-target="#modalUbahData{{ $dataUser->id }}">Ubah</button>
-                                    <button class="btn btn-danger w-50 ms-1" data-bs-toggle="modal" data-bs-target="#modalHapusData{{ $dataUser->id }}">Hapus</button>
+                                    <button class="btn btn-warning rounded-3 w-50 me-1" data-bs-toggle="modal" data-bs-target="#modalUbahData{{ $dataUser->id }}">Ubah</button>
+                                    <button class="btn btn-danger rounded-3 w-50 ms-1" data-bs-toggle="modal" data-bs-target="#modalHapusData{{ $dataUser->id }}">Hapus</button>
                                 </div>
                             </li>
                         </ul>

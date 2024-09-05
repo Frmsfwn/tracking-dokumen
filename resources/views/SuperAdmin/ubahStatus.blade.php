@@ -52,7 +52,7 @@
             </button>
         </form>
         <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
-            <a href="/" class="rounded-pill btn btn-secondary px-4"><i class="fa-solid fa-chevron-left"></i> Kembali</a>            
+            <a href="/" class="rounded-3 btn btn-secondary px-4"><i class="fa-solid fa-chevron-left"></i> Kembali</a>            
             <nav aria-label="breadcrumb" class="align-middle ms-2">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item" ><a href="/" class="text-decoration-none">Home</a></li>
@@ -218,7 +218,7 @@
                     </div>                     
                 </div>
                 <div class="w-100 d-flex justify-content-between">
-                    <a class="rounded-pill btn btn-danger w-auto" data-bs-toggle="modal" data-bs-target="#Hapus">Hapus <i class="fa-solid fa-trash-can"></i></i></a>
+                    <a class="rounded-3 btn btn-danger w-auto" data-bs-toggle="modal" data-bs-target="#Hapus">Hapus <i class="fa-solid fa-trash-can"></i></i></a>
                 </div>                                
                 {{-- Delete Modal --}}
                 <div class="modal fade" id="Hapus" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
@@ -232,11 +232,11 @@
                                 <strong>Apakah anda yakin ingin mnghapus Dokumen?</strong><br>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="rounded-pill btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                                <button type="button" class="rounded-3 btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                                 <form action="">
                                 @csrf
                                 @method('DELETE')
-                                    <button type="submit" class="rounded-pill btn btn-danger">Hapus <i class="fa-solid fa-trash-can"></i></i></button>
+                                    <button type="submit" class="rounded-3 btn btn-danger">Hapus <i class="fa-solid fa-trash-can"></i></i></button>
                                 </form>
                             </div>
                         </div>

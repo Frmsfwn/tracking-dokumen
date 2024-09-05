@@ -59,7 +59,7 @@
             </button>
         </form>
         <div class="d-flex justify-content-between align-items-center mt-3">
-            <a href="{{ route('admin.create.dokumen') }}" class="rounded-pill btn btn-primary ">Dokumen Baru <i class="fa-solid fa-plus"></i></a>
+            <a href="{{ route('admin.create.dokumen') }}" class="rounded-3 btn btn-primary ">Dokumen Baru <i class="fa-solid fa-plus"></i></a>
             <nav aria-label="breadcrumb" class="align-middle">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item" aria-current="page"><a href="#" class="text-decoration-none">Home</a></li>

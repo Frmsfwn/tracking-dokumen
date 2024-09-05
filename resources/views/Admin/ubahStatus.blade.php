@@ -54,7 +54,7 @@
             </button>
         </form>
         <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
-            <a href="/" class="rounded-pill btn btn-secondary px-4"><i class="fa-solid fa-chevron-left"></i> Kembali</a>            
+            <a href="/" class="rounded-3 btn btn-secondary px-4"><i class="fa-solid fa-chevron-left"></i> Kembali</a>            
             <nav aria-label="breadcrumb" class="align-middle ms-2">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item" ><a href="/" class="text-decoration-none">Home</a></li>
@@ -264,7 +264,7 @@
 
 
                 <div class="w-100 d-flex justify-content-end mt-5">
-                    <a class="rounded-pill btn btn-primary w-auto " data-bs-toggle="modal" data-bs-target="#konfirmasiButton">Submit <i class="fa-solid fa-chevron-right"></i></i></a>                   
+                    <a class="rounded-3 btn btn-primary w-auto " data-bs-toggle="modal" data-bs-target="#konfirmasiButton">Submit <i class="fa-solid fa-chevron-right"></i></i></a>                   
                 </div>                
                 {{-- Confirmation Modal --}}
                 <div class="modal fade" id="konfirmasiButton" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
@@ -278,8 +278,8 @@
                                 <strong>Apakah anda yakin ingin Mengubah Status?</strong><br>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="rounded-pill btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                                <button type="submit" class="rounded-pill btn btn-primary">Submit <i class="fa-solid fa-chevron-right"></i></button>
+                                <button type="button" class="rounded-3 btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                                <button type="submit" class="rounded-3 btn btn-primary">Submit <i class="fa-solid fa-chevron-right"></i></button>
                             </div>
                         </div>
                     </div>
