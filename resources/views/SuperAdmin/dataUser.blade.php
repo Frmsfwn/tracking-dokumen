@@ -10,6 +10,11 @@
   
     {{-- Custom CSS --}}
     <style>
+        .btn-hover:hover {
+            background-color: #aaa !important;
+            transition: 200ms;
+        }
+
         .end-reveal {
             right: 1rem;
         }
@@ -65,7 +70,7 @@
     <main class="container-md mt-3">
         {{-- Pencarian --}}
         <form action="" class="position-relative">
-            <input type="text" class="form-control border-primary-subtle" role="search" placeholder="Pencarian" aria-label="search" id="search" aria-describedby="search">
+            <input type="text" name="keyword" class="form-control border-primary-subtle" role="search" placeholder="Pencarian" aria-label="search" id="search" aria-describedby="search">
             <button type="submit" class="btn btn-focus position-absolute end-0 top-50 translate-middle-y" style="border-color: transparent">
                 <i class="fa-solid fa-magnifying-glass fa-lg text-primary"></i>
             </button>
@@ -77,9 +82,9 @@
             </div>
 
             <div class="col-12 col-sm-8 text-sm-end">
-                <a href="" class="bg-secondary-subtle py-1 px-2 text-black text-decoration-none rounded-5">Admin</a>
-                <a href="" class="bg-secondary-subtle py-1 px-2 text-black text-decoration-none rounded-5">PIC</a>
-                <a href="" class="bg-secondary-subtle py-1 px-2 text-black text-decoration-none rounded-5">Semua</a>
+                <a href="" class="bg-secondary-subtle btn-hover py-1 px-2 text-black text-decoration-none rounded-5">Admin</a>
+                <a href="" class="bg-secondary-subtle btn-hover py-1 px-2 text-black text-decoration-none rounded-5">PIC</a>
+                <a href="" class="bg-secondary-subtle btn-hover py-1 px-2 text-black text-decoration-none rounded-5">Semua</a>
             </div>
         </div>
         <div class="d-flex justify-content-between mb-3">
@@ -130,7 +135,7 @@
                 </div>
             </div>
             @empty
-                <h2>Data Kosong!</h2>
+                <h2 class="text-center w-100 text-secondary">Data Kosong!</h2>
             @endforelse
         </section>
         {{-- Pagination --}}

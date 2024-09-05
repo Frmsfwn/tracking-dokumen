@@ -9,14 +9,21 @@ use Illuminate\Validation\Rule;
 
 class SuperAdminController extends Controller
 {
-    function dataUser()
+    function dataUser(Request $request)
     {
+        $keyword = $request->input('keyword');
 
-        $data_user = User::whereNot('role','SuperAdmin')->get();
+        $data_user = User::whereNot('role','SuperAdmin')->paginate(8);
+
+        if ($keyword) {
+            $data_user = User::whereNot('role','SuperAdmin')
+                ->whereAny(['nip', 'nama', 'role'], 'LIKE', "%{$keyword}%")
+                ->orderBy('updated_at','DESC')
+                ->paginate(8);
+        }
 
         return view('SuperAdmin.dataUser')
             ->with('data_user',$data_user);
-
     }
 
     function createUser(Request $request)
