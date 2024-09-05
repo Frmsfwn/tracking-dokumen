@@ -66,7 +66,7 @@
     </nav>
     <main class="container-md mt-3 ">        
         <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
-            <a href="/" class="btn btn-secondary px-4"><i class="fa-solid fa-chevron-left"></i> Kembali</a>
+            <a href="/" class="rounded-pill btn btn-secondary px-4"><i class="fa-solid fa-chevron-left"></i> Kembali</a>
             <h5 class="fs-5 text-semibold"><i class="fa-solid fa-lock"></i> Ubah Password</h5>   
         </div>
         
@@ -105,7 +105,7 @@
                 @enderror
             </div>
             <div class="w-100 d-flex justify-content-end ">
-                <a class="btn btn-primary w-25" data-bs-toggle="modal" data-bs-target="#konfirmasiButton">Ubah <i class="fa-solid fa-chevron-right"></i></a>
+                <a class="rounded-pill btn btn-primary w-25" data-bs-toggle="modal" data-bs-target="#konfirmasiButton">Ubah <i class="fa-solid fa-chevron-right"></i></a>
             </div>
                 
             {{-- Confirmation Modal --}}
@@ -120,8 +120,8 @@
                             <strong>Apakah anda yakin ingin mengubah Password?</strong><br>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                            <button type="submit" class="btn btn-primary">Ubah <i class="fa-solid fa-chevron-right"></i></button>
+                            <button type="button" class="rounded-pill btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                            <button type="submit" class="rounded-pill btn btn-primary">Ubah <i class="fa-solid fa-chevron-right"></i></button>
                         </div>
                     </div>
                 </div>
