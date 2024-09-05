@@ -71,47 +71,52 @@
             </button>
         </form>
 
-        <div class="d-flex mt-3 mb-3 justify-content-between">
-            <h5 class="fs-5 text-semibold">Daftar User</h5>
-            <div>
+        <div class="row mt-3 mb-3 justify-content-between">
+            <div class="col-12 col-sm-4 ">
+                <h5 class="fs-5 text-semibold">Daftar User</h5>
+            </div>
+
+            <div class="col-12 col-sm-8 text-sm-end">
                 <a href="" class="bg-secondary-subtle py-1 px-2 text-black text-decoration-none rounded-5">Admin</a>
                 <a href="" class="bg-secondary-subtle py-1 px-2 text-black text-decoration-none rounded-5">PIV</a>
                 <a href="" class="bg-secondary-subtle py-1 px-2 text-black text-decoration-none rounded-5">Semua</a>
             </div>
         </div>
-        <div class="col mb-3">
-            <a href="/" class="btn btn-secondary" >Kembali</a>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahData">Tambah Data</button>
+        <div class="d-flex justify-content-between mb-3">
+            <a href="/" class="btn btn-secondary" ><i class="fa-solid fa-chevron-left "></i> Kembali</a>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahData"><i class="fa-solid fa-user-plus"></i> Tambah Data</button>
         </div>
-        <div class="row row-cols-1 row-cols-sm-2">
+        <section class="row row-cols-1 row-cols-sm-2 g-2">
             {{-- card user admin --}}
             @forelse($data_user as $dataUser)
             <div class="col">
-                <div class="card mb-4">
-
-                    <div class="card-header text-bg-warning fw-semibold">
-                        <div class="row align-items-center">
-                            <div class="col-10 col-sm-11">                                
-                                <div class="d-grid ">
-                                    <span class="fs-5">{{ $dataUser->nama }}</span>
-                                    <small class="text-secondary fw-normal text-decoration-underline">NIP : {{ $dataUser->nip }}</small>
-                                </div>                                    
-                            </div>
-                            <div class="col-2 col-sm-1 text-center">
-                                <a class="text-black toggle-icon" data-bs-toggle="collapse" href="#{{ $dataUser->nip }}" role="button" aria-expanded="false" aria-controls="dokumen1"><i class="fa-solid fa-angle-up"></i></a>
+                <div class="card mb-4 border-2">
+                    <a class="toggle-icon text-decoration-none" data-bs-toggle="collapse" href="#{{ $dataUser->nip }}" role="button" aria-expanded="false" aria-controls="dokumen1">
+                        <div class="card-header bg-secondary-subtle fw-semibold " >
+                            <div class="row align-items-center">
+                                <div class="col-10 col-sm-10">                                
+                                    <div class="d-grid ">
+                                        <span class="text-black fs-5 ">{{ $dataUser->nama }}</span>
+                                        <small class="text-black fw-medium text-decoration-underline" style="--bs-text-opacity: .6;">NIP : {{ $dataUser->nip }}</small>
+                                    </div>                                    
+                                </div>
+                                <div class="col-2 col-sm-2 text-start ">
+                                    <span class="text-black "><i class="fa-solid fa-angle-up fa-lg"></i></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
+                    
 
                         {{-- isi data admin --}}
-                    <section class="collapse" id="{{$dataUser->nip }}">
+                    <div class="collapse" id="{{$dataUser->nip }}">
                         <ul class="list-group list-group-flush">                                    
                             <li class="list-group-item">
-                                <h5 class="card-title">Username</h5> 
+                                <h5 class="card-title">Username :</h5> 
                                 <h6 class="card-text">{{ $dataUser->username }}</h6>
                             </li>
                             <li class="list-group-item">
-                                <h5 class="card-title">Role</h5> 
+                                <h5 class="card-title">Role :</h5> 
                                 <h6 class="card-text">{{ $dataUser->role }}</h6>
                             </li>                                             
                             <li class="list-group-item"> 
@@ -121,13 +126,13 @@
                                 </div>
                             </li>
                         </ul>
-                    </section>
+                    </div>
                 </div>
             </div>
             @empty
                 <h2>Data Kosong!</h2>
             @endforelse
-        </div>
+        </section>
         {{-- Pagination --}}
         <div id="pagination-links"></div>
     </main>
