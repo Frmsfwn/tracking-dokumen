@@ -89,7 +89,7 @@
                             <option value="Pemetaan Tematik" @selected(old('tim_teknis') === 'Pemetaan Tematik')>Pemetaan Tematik</option>
                             <option value="Survei Umum Migas" @selected(old('tim_teknis') === 'Survei Umum Migas')>Survei Umum Migas</option>
                             <option value="Rekomendasi Wilayah Keprospekan Migas" @selected(old('tim_teknis') === 'Rekomendasi Wilayah Keprospekan Migas')>Rekomendasi Wilayah Keprospekan Migas</option>
-                            <option value="Geopark Nasional dan  Pusat Informasi Geologi" @selected(old('tim_teknis') === 'Geopark Nasional dan  Pusat Informasi Geologi')>Geopark Nasional dan  Pusat Informasi Geologi</option>
+                            <option value="Geopark Nasional dan Pusat Informasi Geologi" @selected(old('tim_teknis') === 'Geopark Nasional dan Pusat Informasi Geologi')>Geopark Nasional dan  Pusat Informasi Geologi</option>
                             <option value="Warisan Geologi" @selected(old('tim_teknis') === 'Warisan Geologi')>Warisan Geologi</option>
                             <option value="Pengembangan Konsep Geosains" @selected(old('tim_teknis') === 'Pengembangan Konsep Geosains')>Pengembangan Konsep Geosains</option>
                         </select>

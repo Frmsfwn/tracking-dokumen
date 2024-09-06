@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -42,6 +43,11 @@ class User extends Authenticatable
         static::creating(function ($model) {
             $model->id = Str::uuid();
         });
+    }
+
+    public function tracking(): BelongsTo
+    {
+        return $this->belongsTo(TrackingDokumen::class, 'id', 'id_admin');
     }
 
 }
