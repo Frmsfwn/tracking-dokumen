@@ -34,7 +34,6 @@ return new class extends Migration
             $table->date('tanggal_awal_dinas');
             $table->date('tanggal_akhir_dinas');
             $table->integer('sisa_hari')->nullable();
-            $table->enum('status',['proses','selesai'])->default('proses');
             $table->timestamps();
         });
     }

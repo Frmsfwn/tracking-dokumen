@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dokumen;
-use App\Models\TrackingDokumen;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -80,43 +78,7 @@ class AdminController extends Controller
 
         ];
 
-        $dokumen = Dokumen::create($inputeddata);
-        $id_dokumen = Dokumen::find($dokumen->id)->id;
-
-        $data_tracking = [
-            [
-                'id_dokumen' => $id_dokumen,
-                'id_admin' => Auth::id(),
-                'status_dokumen' => 'Pengajuan Nota Dinas',
-                'opsi' => 'setuju',
-            ],[
-                'id_dokumen' => $id_dokumen,
-                'status_dokumen' => 'Penerbitan Surat Dinas',
-            ],[
-                'id_dokumen' => $id_dokumen,
-                'status_dokumen' => 'Pembuatan Rampung',
-            ],[
-                'id_dokumen' => $id_dokumen,
-                'status_dokumen' => 'Penandatanganan Rampung',
-            ],[
-                'id_dokumen' => $id_dokumen,
-                'status_dokumen' => 'Penandatanganan PPK',
-            ],[
-                'id_dokumen' => $id_dokumen,
-                'status_dokumen' => 'Penandatanganan Kabag Umum',
-            ],[
-                'id_dokumen' => $id_dokumen,
-                'status_dokumen' => 'Proses SPBY',
-            ],[
-                'id_dokumen' => $id_dokumen,
-                'status_dokumen' => 'Proses Transfer',
-            ]
-        ];
-
-        foreach($data_tracking as $dataTracking)
-        {
-            TrackingDokumen::create($dataTracking);
-        }
+        Dokumen::create($inputeddata);
 
         flash()
         ->killer(true)
@@ -127,35 +89,10 @@ class AdminController extends Controller
         return redirect(route('admin.homepage'));
     }
 
-    function statusDokumen($id)
+    function statusDokumen()
     {
 
-        $data_dokumen = Dokumen::find($id);
-        $customOrder = [            
-            'Pengajuan Nota Dinas',
-            'Penerbitan Surat Dinas',
-            'Pembuatan Rampung',
-            'Penandatanganan Rampung',
-            'Penandatanganan PPK',
-            'Penandatanganan Kabag Umum',
-            'Proses SPBY',
-            'Proses Transfer',
-        ];
-        $data_tracking = 
-            $data_dokumen->tracking->sort(function ($a, $b) use ($customOrder) {
-                $aIndex = array_search($a['status_dokumen'], $customOrder);
-                $bIndex = array_search($b['status_dokumen'], $customOrder);
-                
-                // Handle case where item might not be found in the customOrder array
-                if ($aIndex === false) $aIndex = PHP_INT_MAX;
-                if ($bIndex === false) $bIndex = PHP_INT_MAX;
-                
-                return $aIndex <=> $bIndex;
-            });
-
-        return view('Admin.ubahStatus')
-            ->with('data_dokumen',$data_dokumen)
-            ->with('data_tracking',$data_tracking);
+        return view('Admin.ubahStatus');
 
     }
     

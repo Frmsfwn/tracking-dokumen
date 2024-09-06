@@ -51,6 +51,7 @@
             </button>
         </form>
         <div class="d-flex justify-content-between align-items-center mt-3">
+            <a href="/" class="rounded-3 btn btn-secondary px-4"><i class="fa-solid fa-chevron-left"></i> Kembali</a>
             <nav aria-label="breadcrumb" class="align-middle">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item" ><a href="/" class="text-decoration-none">Home</a></li>
@@ -89,7 +90,6 @@
                             <option value="Survei Umum Migas" @selected(old('tim_teknis') === 'Survei Umum Migas')>Survei Umum Migas</option>
                             <option value="Rekomendasi Wilayah Keprospekan Migas" @selected(old('tim_teknis') === 'Rekomendasi Wilayah Keprospekan Migas')>Rekomendasi Wilayah Keprospekan Migas</option>
                             <option value="Geopark Nasional dan  Pusat Informasi Geologi" @selected(old('tim_teknis') === 'Geopark Nasional dan  Pusat Informasi Geologi')>Geopark Nasional dan  Pusat Informasi Geologi</option>
-                            <option value="Geopark Nasional dan Pusat Informasi Geologi" @selected(old('tim_teknis') === 'Geopark Nasional dan Pusat Informasi Geologi')>Geopark Nasional dan  Pusat Informasi Geologi</option>
                             <option value="Warisan Geologi" @selected(old('tim_teknis') === 'Warisan Geologi')>Warisan Geologi</option>
                             <option value="Pengembangan Konsep Geosains" @selected(old('tim_teknis') === 'Pengembangan Konsep Geosains')>Pengembangan Konsep Geosains</option>
                         </select>
@@ -117,6 +117,7 @@
                     </div>
                 </div>
                 <div class="w-100 d-flex justify-content-end">
+                    <button  type="submit" class="rounded-3 btn btn-primary ">Submit <i class="fa-solid fa-chevron-right"></i></button>                
                 </div>                
             </form>
             
