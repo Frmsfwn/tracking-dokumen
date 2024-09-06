@@ -73,78 +73,94 @@
             </div>
             <div class="card-body ">
                 {{-- FORM --}}
-                <form action="" method="">
-                @csrf
-
-                @php
-                    $previousItem = null;
-                @endphp
-                @foreach($data_tracking as $dataTracking)
-                    <div class="row gy-2 justify-content-between mb-3">
-                        <div class="col-12 col-sm-6">
-                            <div class="d-flex align-items-center">
-                                <div class="flex-shrink-0">
-                                    <i class="@if($dataTracking->opsi === null) fa-solid fa-square-check fa-2xl text-secondary @elseif($dataTracking->opsi === 'perbaiki') fa-solid fa-square-xmark fa-2xl text-danger @elseif($dataTracking->opsi === 'setuju') fa-solid fa-square-check fa-2xl text-success @endif"></i>
-                                </div>
-                                <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
-                                    <span class="fw-medium text-black mb-1">{{ $dataTracking->status_dokumen }}</span>                                
-                                </h5>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-auto">
-                            <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
-                                @if($previousItem !== null)
-                                    @if($previousItem->opsi === null)
-
-                                    @else
-                                        @if($dataTracking->opsi === null)
-                                            <select class="form-select bg-secondary" style="--bs-bg-opacity: .2;">
-                                                <option value="setuju">Setuju</option>
-                                                <option value="perbaiki">Perbaiki</option>
-                                            </select>
-                                        @else
-                                            <span class="fw-medium text-black">({{ optional($dataTracking->admin)->nama }})</span>
-                                            <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">{{ $dataTracking->updated_at->setTimezone(new \DateTimeZone('Asia/Jakarta'))->format('d M Y H:i') }}</small>
-                                        @endif
-                                    @endif
-                                @else
-                                    <span class="fw-medium text-black">({{ optional($dataTracking->admin)->nama }})</span>
-                                    <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">{{ $dataTracking->updated_at->setTimezone(new \DateTimeZone('Asia/Jakarta'))->format('d M Y H:i') }}</small>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="textareaContainer mb-3" style="display: none">
-                        <textarea class="form-control catatan border-2 border-primary-subtle" name="catatan" id="catatan" placeholder="Catatan" style="resize: none; height: 100px"></textarea>
-                    </div>
+                <form action="{{ route('admin.update.status', ['Dokumen' => $data_dokumen]) }}" method="POST">
+                    @csrf
+                    @method('PUT')
 
                     @php
-                        $previousItem = $dataTracking;
+                        $previousItem = null;
                     @endphp
-                @endforeach
+                    @foreach($data_tracking as $dataTracking)
+                        <div class="row gy-2 justify-content-between mb-3">
+                            <div class="col-12 col-sm-6">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <i class="@if($dataTracking->opsi === null) fa-solid fa-square-check fa-2xl text-secondary @elseif($dataTracking->opsi === 'perbaiki') fa-solid fa-square-xmark fa-2xl text-danger @elseif($dataTracking->opsi === 'setuju') fa-solid fa-square-check fa-2xl text-success @endif"></i>
+                                    </div>
+                                    <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
+                                        <span class="fw-medium text-black mb-1">{{ $dataTracking->status_dokumen }}</span> 
+                                    </h5>
+                                </div>
+                            </div>
+                            @php
+                                $id_tracking = $dataTracking->id;
+                            @endphp
+                            <div class="col-12 col-sm-auto">
+                                <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
+                                    @if($previousItem !== null)
+                                        @if($previousItem->opsi === null)
 
-                <div class="w-100 d-flex justify-content-end mt-5">
-                    <a class="rounded-3 btn btn-primary w-auto " data-bs-toggle="modal" data-bs-target="#konfirmasiButton">Submit <i class="fa-solid fa-chevron-right"></i></i></a>                   
-                </div>                
-                {{-- Confirmation Modal --}}
-                <div class="modal fade" id="konfirmasiButton" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="ubahLabel">Ubah Status</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        @elseif($previousItem->opsi === 'perbaiki')
+
+                                        @else
+                                            @if($dataTracking->opsi === null)
+                                                <select class="form-select bg-secondary" name="opsi" id="opsi" style="--bs-bg-opacity: .2;">
+                                                    <option value="setuju" default selected>Setuju</option>
+                                                    <option value="perbaiki">Perbaiki</option>
+                                                </select>
+                                                <input type="hidden" id="id_tracking" name="id_tracking" value="{{ $dataTracking->id }}">
+                                            @elseif($dataTracking->opsi === 'perbaiki')
+                                                <select class="form-select bg-secondary" name="opsi" id="opsi" style="--bs-bg-opacity: .2;">
+                                                    <option value="setuju" default selected>Setuju</option>
+                                                    <option value="perbaiki">Perbaiki</option>
+                                                </select>
+                                                <input type="hidden" id="id_tracking" name="id_tracking" value="{{ $dataTracking->id }}">
+                                            @else
+                                                <span class="fw-medium text-black">({{ optional($dataTracking->admin)->nama }})</span>
+                                                <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">{{ $dataTracking->updated_at->setTimezone(new \DateTimeZone('Asia/Jakarta'))->format('d M Y H:i') }}</small>
+                                            @endif
+                                        @endif
+                                    @else
+                                        <span class="fw-medium text-black">({{ optional($dataTracking->admin)->nama }})</span>
+                                        <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">{{ $dataTracking->updated_at->setTimezone(new \DateTimeZone('Asia/Jakarta'))->format('d M Y H:i') }}</small>
+                                    @endif
+                                </div>
                             </div>
-                            <div class="modal-body text-center">
-                                <strong>Apakah anda yakin ingin Mengubah Status?</strong><br>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="rounded-3 btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                                <button type="submit" class="rounded-3 btn btn-primary">Submit <i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+
+                        <div class="textareaContainer mb-3" style="display: none">
+                            <textarea name="{{ $id_tracking }}" id="catatan" placeholder="Catatan" style="resize: none; height: 100px" class="form-control catatan border-2 border-primary-subtle @error('catatan', $dataTracking->id) is-invalid @enderror"></textarea>
+                            @error('alasan', $dataTracking->id)
+                                <div class="text-danger"><small>{{ $errors->{$dataTracking->id}->first('catatan') }}</small></div>
+                            @enderror
+                        </div>
+
+                        @php
+                            $previousItem = $dataTracking;
+                        @endphp
+                    @endforeach
+
+                    <div class="w-100 d-flex justify-content-end mt-5">
+                        <a class="rounded-3 btn btn-primary w-auto " data-bs-toggle="modal" data-bs-target="#konfirmasiButton">Submit <i class="fa-solid fa-chevron-right"></i></i></a>                   
+                    </div>                
+                    {{-- Confirmation Modal --}}
+                    <div class="modal fade" id="konfirmasiButton" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="ubahLabel">Ubah Status</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <strong>Apakah anda yakin ingin Mengubah Status?</strong><br>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="rounded-3 btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                                    <button type="submit" class="rounded-3 btn btn-primary">Submit <i class="fa-solid fa-chevron-right"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 </form>
             </div>            
         </section>

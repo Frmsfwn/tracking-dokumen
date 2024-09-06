@@ -158,5 +158,54 @@ class AdminController extends Controller
             ->with('data_tracking',$data_tracking);
 
     }
+
+    function updateStatus(Dokumen $Dokumen,Request $request)
+    {
+
+        $id_tracking = $request->id_tracking;
+        $catatan = $request->input($id_tracking);
+
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->error('<b>Error!</b><br>Data gagal disimpan.');
+
+        Validator::make($request->input(), [
+
+            'opsi' => 'required|in:setuju,perbaiki',
+            'catatan' => 'nullable',
+
+        ])->validateWithBag($id_tracking);
+
+        $tracking = TrackingDokumen::find($id_tracking);
+        $tracking->update([
+
+            'id_admin' => Auth::id(),
+            'opsi' => $request->opsi,
+            'catatan' => $catatan,
+
+        ]);
+
+        if($tracking->status_dokumen === 'Proses Transfer') {
+
+            if($tracking->opsi === 'setuju') {
+
+                $Dokumen->update([
+                    'status' => 'selesai',
+                    'sisa_hari' => null,
+                ]);
+
+            }
+        }
+
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('<b>Berhasil!</b><br>Data berhasil disimpan.');
+
+        return redirect(route('admin.homepage'));
+    }
     
 }

@@ -91,8 +91,10 @@
                                         <div class="col-auto me-2 me-sm-0 col-sm-5">
                                             <i class="@if($dataDokumen->status === 'proses') fa-regular fa-hourglass-half me-2 @else fa-solid fa-check-double me-2 @endif"></i> {{ $dataDokumen->nomor_surat }}
                                         </div>
-                                        <span class="badge rounded-pill text-bg-danger col-4 col-sm-2">Sisa hari: 3</span>
-                                        <span class="text-secondary fw-normal col-12 col-sm-5 text-sm-end">{{ \Carbon\Carbon::parse($dataDokumen->tanggal_awal_dinas)->format('d/m/Y') }} s.d. {{ \Carbon\Carbon::parse($dataDokumen->tanggal_akhir_dinas)->format('d/m/Y') }}</span>
+                                        @if($dataDokumen->status === 'proses')
+                                            <span class="badge rounded-pill text-bg-danger col-4 col-sm-2">Sisa hari: 3</span>
+                                        @endif
+                                        <span class="text-white fw-normal col-12 col-sm-5 text-sm-end">{{ \Carbon\Carbon::parse($dataDokumen->tanggal_awal_dinas)->format('d/m/Y') }} s.d. {{ \Carbon\Carbon::parse($dataDokumen->tanggal_akhir_dinas)->format('d/m/Y') }}</span>
                                     </div>
                                 </div>
                                 <div class="col-2 col-sm-1 text-center">
@@ -102,7 +104,29 @@
                         </div>
                         <div class="collapse" id="{{ $dataDokumen->id }}">
                             {{-- Pengulangan Timeline --}}
-                            @foreach($dataDokumen->tracking->where('opsi','setuju') as $dataTracking)
+                            @php
+                                $customOrder = [            
+                                    'Pengajuan Nota Dinas',
+                                    'Penerbitan Surat Dinas',
+                                    'Pembuatan Rampung',
+                                    'Penandatanganan Rampung',
+                                    'Penandatanganan PPK',
+                                    'Penandatanganan Kabag Umum',
+                                    'Proses SPBY',
+                                    'Proses Transfer',
+                                ];
+
+                                $data_tracking = $dataDokumen->tracking->sort(function ($a, $b) use ($customOrder) {
+                                    $aIndex = array_search($a['status_dokumen'], $customOrder);
+                                    $bIndex = array_search($b['status_dokumen'], $customOrder);
+
+                                    if ($aIndex === false) $aIndex = PHP_INT_MAX;
+                                    if ($bIndex === false) $bIndex = PHP_INT_MAX;
+
+                                    return $aIndex <=> $bIndex;
+                                });
+                            @endphp
+                            @foreach($data_tracking->whereNotNull('opsi') as $dataTracking)
                                 <a href="{{ route('admin.status.dokumen', ['id' => $dataDokumen->id]) }}" class="text-decoration-none">
                                     <div class="card-body row gy-2 justify-content-between">
                                         <div class="col-12 col-sm-6">

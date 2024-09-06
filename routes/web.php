@@ -42,6 +42,7 @@ Route::group(['middleware' => 'preventBackHistory'], function(){
             route::get('/data/dokumen/create', [AdminController::class, 'createDokumen'])->name('create.dokumen');
             route::post('/data/dokumen/store', [AdminController::class, 'storeDokumen'])->name('store.dokumen');
             route::get('/data/dokumen/{id}/status', [AdminController::class, 'statusDokumen'])->name('status.dokumen');
+            route::put('/data/dokumen/{Dokumen}/status/update', [AdminController::class, 'updateStatus'])->name('update.status');
             
         });    
         Route::prefix('pic')->name('pic.')->middleware(['userAccess:PIC'])->group(function() {
