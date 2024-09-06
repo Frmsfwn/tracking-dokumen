@@ -59,7 +59,6 @@
             </button>
         </form>
         <div class="d-flex justify-content-between align-items-center mt-3">
-            <a href="{{ route('admin.create.dokumen') }}" class="rounded-3 btn btn-primary ">Dokumen Baru <i class="fa-solid fa-plus"></i></a>
             <nav aria-label="breadcrumb" class="align-middle">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item" aria-current="page"><a href="#" class="text-decoration-none">Home</a></li>
@@ -84,92 +83,53 @@
                 {{-- Pengulangan Dokumen --}}
                 @foreach($data_dokumen as $dataDokumen)
                     <div class="card mb-4">
-                        <div class="card-header text-bg-warning fw-semibold">
+                        <div class="card-header @if($dataDokumen->status === 'proses') text-bg-warning @else text-bg-success @endif fw-semibold">
                             <div class="row align-items-center">
                                 <div class="col-10 col-sm-11">
                                     <div class="row g-1 g-sm-0">
                                         <div class="col-auto me-2 me-sm-0 col-sm-5">
-                                            <i class="fa-regular fa-hourglass-half me-2"></i> {{ $dataDokumen->nomor_surat }}
+                                            <i class="@if($dataDokumen->status === 'proses') fa-regular fa-hourglass-half me-2 @else fa-solid fa-check-double me-2 @endif"></i> {{ $dataDokumen->nomor_surat }}
                                         </div>
                                         <span class="badge rounded-pill text-bg-danger col-4 col-sm-2">Sisa hari: 3</span>
                                         <span class="text-secondary fw-normal col-12 col-sm-5 text-sm-end">{{ \Carbon\Carbon::parse($dataDokumen->tanggal_awal_dinas)->format('d/m/Y') }} s.d. {{ \Carbon\Carbon::parse($dataDokumen->tanggal_akhir_dinas)->format('d/m/Y') }}</span>
                                     </div>
                                 </div>
                                 <div class="col-2 col-sm-1 text-center">
-                                    <a class="text-black toggle-icon" data-bs-toggle="collapse" href="#dokumen1" role="button" aria-expanded="false" aria-controls="dokumen1"><i class="fa-solid fa-angle-up"></i></a>
+                                    <a class="text-black toggle-icon" data-bs-toggle="collapse" href="#{{ $dataDokumen->id }}" role="button" aria-expanded="false" aria-controls="dokumen1"><i class="fa-solid fa-angle-up"></i></a>
                                 </div>
                             </div>
                         </div>
-                        <div class="collapse" id="dokumen1">
+                        <div class="collapse" id="{{ $dataDokumen->id }}">
                             {{-- Pengulangan Timeline --}}
-                            <a href="{{ route('admin.status.dokumen') }}" class="text-decoration-none">
-                                <div class="card-body row gy-2 justify-content-between">
-                                    <div class="col-12 col-sm-6">
-                                        <div class="d-flex align-items-center">
-                                            <div class="flex-shrink-0">
-                                                <i class="fa-solid fa-square-check fa-2xl text-success"></i>
+                            @foreach($dataDokumen->tracking->where('opsi','setuju') as $dataTracking)
+                                <a href="{{ route('admin.status.dokumen', ['id' => $dataDokumen->id]) }}" class="text-decoration-none">
+                                    <div class="card-body row gy-2 justify-content-between">
+                                        <div class="col-12 col-sm-6">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-shrink-0">
+                                                    <i class="@if($dataTracking->opsi === 'perbaiki') fa-solid fa-square-xmark fa-2xl text-danger @elseif($dataTracking->opsi === 'setuju') fa-solid fa-square-check fa-2xl text-success @endif"></i>
+                                                </div>
+                                                <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
+                                                    <span class="fw-medium text-black mb-1">{{ $dataTracking->status_dokumen }}</span>
+                                                    @if($dataTracking->opsi === 'perbaiki')
+                                                        <small class="text-secondary link-offset-1 text-decoration-underline fw-normal" style="font-size: .8rem">{{ $dataTracking->catatan }}</small>
+                                                    @endif
+                                                </h5>
                                             </div>
-                                            <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
-                                                <span class="fw-medium text-black mb-1">Pengajuan Nota Dinas</span>
-                                                <small class="text-secondary link-offset-1 text-decoration-underline fw-normal" style="font-size: .8rem">Pengajuan ditolak karena tidak memenuhi kriteria pengajuan. Mohon Ajukan ulang</small>
-                                            </h5>
+                                        </div>
+                                        <div class="col-12 col-sm-auto">
+                                            <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
+                                                <span class="fw-medium text-black">({{ $dataTracking->admin->nama }})</span>
+                                                <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">{{ $dataTracking->updated_at->setTimezone(new \DateTimeZone('Asia/Jakarta'))->format('d M Y H:i') }}</small>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-auto">
-                                        <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
-                                            <span class="fw-medium text-black">(Admin SPPD 1)</span>
-                                            <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">10 Agustus 2024 10:00</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
+                                </a>
+                            @endforeach
                         </div>
                         <div class="card-footer text-dark-emphasis" style="background-color: rgba(217, 217, 217, 1);">{{ $dataDokumen->tim_teknis }}</div>
                     </div>
                 @endforeach
-
-                <div class="card mb-4">
-                    <div class="card-header text-bg-success fw-semibold">
-                        <div class="row align-items-center">
-                            <div class="col-10 col-sm-11">
-                                <div class="row g-1 g-sm-0">
-                                    <div class="col-12 col-sm-6">
-                                        <i class="fa-solid fa-check-double me-2"></i> SI/2024/001-002
-                                    </div>
-                                    <span class="text-white fw-normal col-12 col-sm-6 text-sm-end">10/8/2024 s.d. 11/8/2024</span>
-                                </div>
-                            </div>
-                            <div class="col-2 col-sm-1 text-center">
-                                <a class="text-black toggle-icon" data-bs-toggle="collapse" href="#dokumen2" role="button" aria-expanded="false" aria-controls="dokumen2"><i class="fa-solid fa-angle-up text-white"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="collapse" id="dokumen2">
-                        {{-- Pengulangan Timeline --}}
-                        <a href="/ubahstatus" class="text-decoration-none">
-                            <div class="card-body row gy-2 justify-content-between">
-                                <div class="col-12 col-sm-6">
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-shrink-0">
-                                            <i class="fa-solid fa-square-check fa-2xl text-success"></i>
-                                        </div>
-                                        <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
-                                            <span class="fw-medium text-black mb-1">Pengajuan Nota Dinas</span>
-                                            <small class="text-secondary link-offset-1 text-decoration-underline fw-normal" style="font-size: .8rem">10 Agustus 2024 10:00</small>
-                                        </h5>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-auto">
-                                    <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
-                                        <span class="fw-medium text-black">(Admin SPPD 1)</span>
-                                        <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">10 Agustus 2024 10:00</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </a> 
-                    </div>
-                    <div class="card-footer text-dark-emphasis" style="background-color: rgba(217, 217, 217, 1);">Urusan Umum dan Kepegawaian - Sistem Informasi</div>
-                </div>
             </div>
         </section>
         {{-- Pagination --}}

@@ -8,17 +8,26 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('tracking_dokumen', function (Blueprint $table) {
+        $data_proses = [
+
+            'Pengajuan Nota Dinas',
+            'Penerbitan Surat Dinas',
+            'Pembuatan Rampung',
+            'Penandatanganan Rampung',
+            'Penandatanganan PPK',
+            'Penandatanganan Kabag Umum',
+            'Proses SPBY',
+            'Proses Transfer',
+
+        ];
+
+        Schema::create('tracking_dokumen', function (Blueprint $table) use ($data_proses) {
             $table->uuid('id')->primary();
             $table->foreignUuid('id_dokumen')->references('id')->on('dokumen')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('pengajuan_nota_dinas')->nullable();
-            $table->string('penerbitan_surat_dinas')->nullable();
-            $table->string('pembuatan_rampung')->nullable();
-            $table->string('penandatanganan_rampung')->nullable();
-            $table->string('penandatanganan_ppk')->nullable();
-            $table->string('penandatanganan_kabag_umum')->nullable();
-            $table->string('proses_spby')->nullable();
-            $table->string('proses_transfer')->nullable();
+            $table->foreignUuid('id_admin')->nullable()->references('id')->on('user')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->enum('status_dokumen',$data_proses);
+            $table->enum('opsi',['setuju','perbaiki'])->nullable();
+            $table->string('catatan')->nullable();
             $table->timestamps();
         });
     }
