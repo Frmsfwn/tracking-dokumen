@@ -149,15 +149,30 @@ class LoginController extends Controller
         return redirect(route('login'));
     }
 
-    function Homepage()
+    function Homepage(Request $request)
     {
+        
         if(Auth::user()->role === 'SuperAdmin') {
 
             return view('superAdmin.index');
 
         }elseif(Auth::user()->role === 'Admin') {
-
-            $data_dokumen = Dokumen::all();
+            
+            $keyword = $request->input('keyword');
+            
+            $data_dokumen = Dokumen::paginate(8);
+            
+            if ($keyword) {
+                $data_dokumen = Dokumen::whereAny([
+                    'nomor_surat',
+                    'tim_teknis',
+                    'tanggal_awal_dinas',
+                    'tanggal_akhir_dinas',
+                    'sisa_hari',
+                    'status'], 'LIKE', "%{$keyword}%")
+                    ->orderBy('status','ASC')
+                    ->paginate(8);
+            }
 
             return view('admin.index')
                 ->with('data_dokumen',$data_dokumen);

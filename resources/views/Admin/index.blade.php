@@ -53,7 +53,7 @@
     <main class="container-md mt-3">
         {{-- Pencarian --}}
         <form action="" class="position-relative">
-            <input type="text" class="form-control border-primary-subtle" role="search" placeholder="Pencarian" aria-label="search" id="search" aria-describedby="search">
+            <input type="text" class="form-control border-primary-subtle" name="keyword" role="search" placeholder="Pencarian" aria-label="search" id="search" aria-describedby="search">
             <button type="submit" class="btn btn-focus position-absolute end-0 top-50 translate-middle-y" style="border-color: transparent">
                 <i class="fa-solid fa-magnifying-glass fa-lg text-primary"></i>
             </button>
@@ -68,6 +68,7 @@
         </div>
         <div class="d-flex mt-3 mb-3 justify-content-between">
             <h5 class="fs-5 text-semibold">Daftar Dokumen</h5>
+            {{-- Filter --}}
             <div>
                 <a href="" class="py-1 px-2 text-black text-decoration-none rounded-5 me-3 me-sm-4 position-relative">
                     Proses
@@ -82,19 +83,19 @@
         <section class="row">
             <div class="col">
                 {{-- Pengulangan Dokumen --}}
-                @foreach($data_dokumen as $dataDokumen)
+                @forelse($data_dokumen as $dataDokumen)
                     <div class="card mb-4">
                         <div class="card-header @if($dataDokumen->status === 'proses') text-bg-warning @else text-bg-success @endif fw-semibold">
                             <div class="row align-items-center">
                                 <div class="col-10 col-sm-11">
-                                    <div class="row g-1 g-sm-0">
+                                    <div class="row g-1 g-sm-0 @if($dataDokumen->status === 'selesai') justify-content-between @endif">
                                         <div class="col-auto me-2 me-sm-0 col-sm-5">
-                                            <i class="@if($dataDokumen->status === 'proses') fa-regular fa-hourglass-half me-2 @else fa-solid fa-check-double me-2 @endif"></i> {{ $dataDokumen->nomor_surat }}
+                                            <i class="@if($dataDokumen->status === 'proses') fa-regular fa-hourglass-half @else fa-solid fa-check-double @endif me-2"></i> {{ $dataDokumen->nomor_surat }}
                                         </div>
                                         @if($dataDokumen->status === 'proses')
                                             <span class="badge rounded-pill text-bg-danger col-4 col-sm-2">Sisa hari: 3</span>
                                         @endif
-                                        <span class="text-white fw-normal col-12 col-sm-5 text-sm-end">{{ \Carbon\Carbon::parse($dataDokumen->tanggal_awal_dinas)->format('d/m/Y') }} s.d. {{ \Carbon\Carbon::parse($dataDokumen->tanggal_akhir_dinas)->format('d/m/Y') }}</span>
+                                        <span class="@if($dataDokumen->status === 'proses') @else text-white @endif fw-normal col-12 col-sm-5 text-sm-end">{{ \Carbon\Carbon::parse($dataDokumen->tanggal_awal_dinas)->format('d/m/Y') }} s.d. {{ \Carbon\Carbon::parse($dataDokumen->tanggal_akhir_dinas)->format('d/m/Y') }}</span>
                                     </div>
                                 </div>
                                 <div class="col-2 col-sm-1 text-center">
@@ -154,7 +155,9 @@
                         </div>
                         <div class="card-footer text-dark-emphasis" style="background-color: rgba(217, 217, 217, 1);">{{ $dataDokumen->tim_teknis }}</div>
                     </div>
-                @endforeach
+                @empty
+                    <h2 class="text-center w-100 text-secondary">Data Kosong!</h2>
+                @endforelse
             </div>
         </section>
         {{-- Pagination --}}
