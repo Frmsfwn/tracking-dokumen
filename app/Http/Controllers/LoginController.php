@@ -155,7 +155,8 @@ class LoginController extends Controller
         if(Auth::user()->role === 'SuperAdmin') {
 
             $keyword = $request->input('keyword');
-            
+            $filter = $request->input('filter', 'all');
+
             $data_dokumen = Dokumen::paginate(8);
             
             if ($keyword) {
@@ -166,17 +167,25 @@ class LoginController extends Controller
                     'tanggal_akhir_dinas',
                     'sisa_hari',
                     'status'], 'LIKE', "%{$keyword}%")
-                    ->orderBy('status','ASC')
+                    ->orderBy('status', 'ASC')
                     ->paginate(8);
             }
 
+            if ($filter) {
+                if ($filter == 'process') {
+                    $data_dokumen = Dokumen::where('status', 'proses')->get();
+                }
+            }            
+
             return view('superAdmin.index')
-                ->with('data_dokumen',$data_dokumen);
+                ->with('data_dokumen',$data_dokumen)
+                ->with('filter',$filter);
 
         }elseif(Auth::user()->role === 'Admin') {
             
             $keyword = $request->input('keyword');
-            
+            $filter = $request->input('filter', 'all');
+
             $data_dokumen = Dokumen::paginate(8);
             
             if ($keyword) {
@@ -187,16 +196,48 @@ class LoginController extends Controller
                     'tanggal_akhir_dinas',
                     'sisa_hari',
                     'status'], 'LIKE', "%{$keyword}%")
-                    ->orderBy('status','ASC')
+                    ->orderBy('status', 'ASC')
                     ->paginate(8);
             }
 
+            if ($filter) {
+                if ($filter == 'process') {
+                    $data_dokumen = Dokumen::where('status', 'proses')->get();
+                }
+            }
+
             return view('admin.index')
-                ->with('data_dokumen',$data_dokumen);
+                ->with('data_dokumen',$data_dokumen)
+                ->with('filter',$filter);
 
         }elseif(Auth::user()->role === 'PIC') {
 
-            return view('pic.index');
+            $keyword = $request->input('keyword');
+            $filter = $request->input('filter', 'all');
+
+            $data_dokumen = Dokumen::paginate(8);
+            
+            if ($keyword) {
+                $data_dokumen = Dokumen::whereAny([
+                    'nomor_surat',
+                    'tim_teknis',
+                    'tanggal_awal_dinas',
+                    'tanggal_akhir_dinas',
+                    'sisa_hari',
+                    'status'], 'LIKE', "%{$keyword}%")
+                    ->orderBy('status', 'ASC')
+                    ->paginate(8);
+            }
+
+            if ($filter) {
+                if ($filter == 'process') {
+                    $data_dokumen = Dokumen::where('status', 'proses')->get();
+                }
+            }
+
+            return view('pic.index')
+                ->with('data_dokumen',$data_dokumen)
+                ->with('filter',$filter);
 
         }
 

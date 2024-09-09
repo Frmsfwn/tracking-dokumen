@@ -14,18 +14,26 @@ class SuperAdminController extends Controller
     function dataUser(Request $request)
     {
         $keyword = $request->input('keyword');
-
-        $data_user = User::whereNot('role','SuperAdmin')->paginate(8);
-
+        $filter = $request->input('filter', 'all');
+    
+        $data = User::whereNot('role', 'SuperAdmin');
+            
         if ($keyword) {
-            $data_user = User::whereNot('role','SuperAdmin')
-                ->whereAny(['nip', 'nama', 'role'], 'LIKE', "%{$keyword}%")
-                ->orderBy('updated_at','DESC')
-                ->paginate(8);
+            $data->whereAny(['nip','nama','role'], 'LIKE', "%{$keyword}%");
         }
-
+    
+        if ($filter) {
+            if ($filter == 'admin') {
+                $data->where('role', 'Admin');
+            } elseif ($filter == 'pic') {
+                $data->where('role', 'PIC');
+            }
+        }
+        $data_user = $data->orderBy('updated_at', 'DESC')->paginate(8);
+        
         return view('SuperAdmin.dataUser')
-            ->with('data_user',$data_user);
+            ->with('data_user',$data_user)
+            ->with('filter',$filter);
     }
 
     function createUser(Request $request)

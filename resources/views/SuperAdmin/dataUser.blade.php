@@ -82,9 +82,9 @@
             </div>
 
             <div class="col-12 col-sm-8 text-sm-end">
-                <a href="" class="bg-secondary-subtle btn-hover py-1 px-2 text-black text-decoration-none rounded-5">Admin</a>
-                <a href="" class="bg-secondary-subtle btn-hover py-1 px-2 text-black text-decoration-none rounded-5">PIC</a>
-                <a href="" class="bg-secondary-subtle btn-hover py-1 px-2 text-black text-decoration-none rounded-5">Semua</a>
+                <a href="{{ route('superAdmin.show.user', ['filter' => 'admin']) }}"  class="@if ($filter == 'admin') bg-secondary-subtle  @endif btn-hover py-1 px-2 text-black text-decoration-none rounded-5">Admin</a>
+                <a href="{{ route('superAdmin.show.user', ['filter' => 'pic']) }}" class="@if ($filter == 'pic') bg-secondary-subtle  @endif btn-hover py-1 px-2 text-black text-decoration-none rounded-5">PIC</a>                                    
+                <a href="{{ route('superAdmin.show.user', ['filter' => 'all']) }}" class="@if ($filter == 'all') bg-secondary-subtle  @endif btn-hover py-1 px-2 text-black text-decoration-none rounded-5 ">Semua</a>
             </div>
         </div>
         <div class="d-flex justify-content-between mb-3">

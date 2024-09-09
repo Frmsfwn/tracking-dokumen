@@ -18,7 +18,7 @@
         i.fa-solid {
             transition: transform 0.3s ease;
         }
-        
+
         @media (min-width: 768px) {
             .fs-md-4 {
                 font-size: calc(1.275rem + 0.3vw) !important;
@@ -41,10 +41,9 @@
             <span class="navbar-brand mb-0 fs-5 fs-md-4 me-2 me-sm-3"><i class="fa-regular fa-clock fa-sm me-2"></i>Document Tracking - PSG</span>
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-body-secondary fw-medium text-capitalize" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{ Auth::user()->role }}/<b>{{ Auth::user()->username }}</b>
+                    PIC
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="{{ route('superAdmin.show.user') }}">Data User</a></li>
                     <li><a class="dropdown-item" href="{{ route('edit.password') }}">Ubah Password</a></li>
                     <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
                 </ul>
@@ -58,25 +57,19 @@
             <button type="submit" class="btn btn-focus position-absolute end-0 top-50 translate-middle-y" style="border-color: transparent">
                 <i class="fa-solid fa-magnifying-glass fa-lg text-primary"></i>
             </button>
-        </form>
-        <div class="d-flex justify-content-end align-items-center mt-3">
-            <nav aria-label="breadcrumb" class="align-middle">
-                <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item" aria-current="page"><a href="#" class="text-decoration-none">Home</a></li>
-                </ol>
-            </nav>
-        </div>
-        <div class="d-flex mt-3 mb-3 justify-content-between">
+        </form>        
+        <div class="d-flex mt-4 mb-3 justify-content-between">
             <h5 class="fs-5 text-semibold">Daftar Dokumen</h5>
+            {{-- Filter --}}
             <div>
-                <a href="{{ route('superAdmin.homepage', ['filter' => 'process']) }}" class="@if ($filter == 'process') bg-secondary-subtle @endif py-1 px-2 text-black text-decoration-none rounded-5 me-3 me-sm-4 position-relative">
+                <a href="{{ route('pic.homepage', ['filter' => 'process']) }}" class="@if ($filter == 'process') bg-secondary-subtle @endif py-1 px-2 text-black text-decoration-none rounded-5 me-3 me-sm-4 position-relative">
                     Proses
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-5 bg-danger">
                         +9
                         <span class="visually-hidden">unread document</span>
                     </span>
                 </a>
-                <a href="{{ route('superAdmin.homepage', ['filter' => 'all']) }}" class="@if ($filter == 'all') bg-secondary-subtle @endif py-1 px-2 text-black text-decoration-none rounded-5">Semua</a>
+                <a href="{{ route('pic.homepage', ['filter' => 'all']) }}" class="@if ($filter == 'all') bg-secondary-subtle @endif py-1 px-2 text-black text-decoration-none rounded-5">Semua</a>
             </div>
         </div>
         <section class="row">
@@ -126,30 +119,28 @@
                                     return $aIndex <=> $bIndex;
                                 });
                             @endphp
-                            @foreach($data_tracking->whereNotNull('opsi') as $dataTracking)
-                                <a href="{{ route('superAdmin.status.dokumen', ['id' => $dataDokumen->id]) }}" class="text-decoration-none">
-                                    <div class="card-body row gy-2 justify-content-between">
-                                        <div class="col-12 col-sm-6">
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0">
-                                                    <i class="@if($dataTracking->opsi === 'perbaiki') fa-solid fa-square-xmark fa-2xl text-danger @elseif($dataTracking->opsi === 'setuju') fa-solid fa-square-check fa-2xl text-success @endif"></i>
-                                                </div>
-                                                <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
-                                                    <span class="fw-medium text-black mb-1">{{ $dataTracking->status_dokumen }}</span>
-                                                    @if($dataTracking->opsi === 'perbaiki')
-                                                        <small class="text-secondary link-offset-1 text-decoration-underline fw-normal" style="font-size: .8rem">{{ $dataTracking->catatan }}</small>
-                                                    @endif
-                                                </h5>
+                            @foreach($data_tracking->whereNotNull('opsi') as $dataTracking)                                
+                                <div class="card-body row gy-2 justify-content-between">
+                                    <div class="col-12 col-sm-6">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0">
+                                                <i class="@if($dataTracking->opsi === 'perbaiki') fa-solid fa-square-xmark fa-2xl text-danger @elseif($dataTracking->opsi === 'setuju') fa-solid fa-square-check fa-2xl text-success @endif"></i>
                                             </div>
-                                        </div>
-                                        <div class="col-12 col-sm-auto">
-                                            <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
-                                                <span class="fw-medium text-black">({{ $dataTracking->admin->nama }})</span>
-                                                <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">{{ $dataTracking->updated_at->setTimezone(new \DateTimeZone('Asia/Jakarta'))->format('d M Y H:i') }}</small>
-                                            </div>
+                                            <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
+                                                <span class="fw-medium text-black mb-1">{{ $dataTracking->status_dokumen }}</span>
+                                                @if($dataTracking->opsi === 'perbaiki')
+                                                    <small class="text-secondary link-offset-1 text-decoration-underline fw-normal" style="font-size: .8rem">{{ $dataTracking->catatan }}</small>
+                                                @endif
+                                            </h5>
                                         </div>
                                     </div>
-                                </a>
+                                    <div class="col-12 col-sm-auto">
+                                        <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
+                                            <span class="fw-medium text-black">({{ $dataTracking->admin->nama }})</span>
+                                            <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">{{ $dataTracking->updated_at->setTimezone(new \DateTimeZone('Asia/Jakarta'))->format('d M Y H:i') }}</small>
+                                        </div>
+                                    </div>
+                                </div>                                
                             @endforeach
                         </div>
                         <div class="card-footer text-dark-emphasis" style="background-color: rgba(217, 217, 217, 1);">{{ $dataDokumen->tim_teknis }}</div>
@@ -175,7 +166,7 @@
             const viewportHeight = window.innerHeight;
             const footer = document.querySelector('.footer');
 
-            if (bodyHeight >= viewportHeight) {
+            if (bodyHeight > viewportHeight) {
                 footer.classList.remove('fixed-bottom');
                 footer.classList.add('position-static');
             } else {

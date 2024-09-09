@@ -70,14 +70,14 @@
             <h5 class="fs-5 text-semibold">Daftar Dokumen</h5>
             {{-- Filter --}}
             <div>
-                <a href="" class="py-1 px-2 text-black text-decoration-none rounded-5 me-3 me-sm-4 position-relative">
+                <a href="{{ route('admin.homepage', ['filter' => 'process']) }}" class="@if ($filter == 'process') bg-secondary-subtle @endif py-1 px-2 text-black text-decoration-none rounded-5 me-3 me-sm-4 position-relative">
                     Proses
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-5 bg-danger">
                         +9
                         <span class="visually-hidden">unread document</span>
                     </span>
                 </a>
-                <a href="" class="bg-secondary-subtle py-1 px-2 text-black text-decoration-none rounded-5">Semua</a>
+                <a href="{{ route('admin.homepage', ['filter' => 'all']) }}" class="@if ($filter == 'all') bg-secondary-subtle @endif py-1 px-2 text-black text-decoration-none rounded-5">Semua</a>
             </div>
         </div>
         <section class="row">

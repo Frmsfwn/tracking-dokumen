@@ -38,7 +38,6 @@ Route::group(['middleware' => 'preventBackHistory'], function(){
 
         });
         Route::prefix('admin')->name('admin.')->middleware(['userAccess:Admin'])->group(function() {
-
             route::get('/homepage', [LoginController::class, 'homepage'])->name('homepage');
             route::get('/data/dokumen/create', [AdminController::class, 'createDokumen'])->name('create.dokumen');
             route::post('/data/dokumen/store', [AdminController::class, 'storeDokumen'])->name('store.dokumen');
@@ -47,7 +46,7 @@ Route::group(['middleware' => 'preventBackHistory'], function(){
             
         });    
         Route::prefix('pic')->name('pic.')->middleware(['userAccess:PIC'])->group(function() {
-
+            route::get('/homepage', [LoginController::class, 'homepage'])->name('homepage');
 
 
         });
