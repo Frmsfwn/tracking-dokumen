@@ -27,7 +27,7 @@
     {{-- JQuery  --}}
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
-    <title>{{ config('app.name') }} | Dokumen Baru</title>
+    <title>{{ config('app.name') }} | Status Dokumen</title>
 </head>
 <body class="m-sm-3 mt-2 mx-1">
     {{-- Navbar --}}
@@ -62,7 +62,7 @@
                 </ol>
             </nav>
         </div>                
-        <section class="card border-1 border-primary-subtle">
+        <section class="card border-1 border-primary-subtle" id="printableCard">
             <div class="card-header bg-secondary fw-semibold pb-1" style="--bs-bg-opacity: .2;">
                 <div class="d-flex justify-content-between">                                           
                     <h5 class="text-black">Ubah Status</h5>                    
@@ -71,7 +71,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body ">
+            <div class="card-body">
                 {{-- FORM --}}
                 <form action="{{ route('admin.update.status', ['Dokumen' => $data_dokumen]) }}" method="POST">
                     @csrf
@@ -129,7 +129,7 @@
                         </div>
 
                         <div class="textareaContainer mb-3" style="display: none">
-                            <textarea name="{{ $id_tracking }}" id="catatan" placeholder="Catatan" style="resize: none; height: 100px" class="form-control catatan border-2 border-primary-subtle @error('catatan', $dataTracking->id) is-invalid @enderror"></textarea>
+                            <textarea name="{{ $id_tracking }}" placeholder="Catatan" style="resize: none; height: 100px" class="form-control catatan border-2 border-primary-subtle @error('catatan', $dataTracking->id) is-invalid @enderror"></textarea>
                             @error('alasan', $dataTracking->id)
                                 <div class="text-danger"><small>{{ $errors->{$dataTracking->id}->first('catatan') }}</small></div>
                             @enderror
@@ -139,10 +139,11 @@
                             $previousItem = $dataTracking;
                         @endphp
                     @endforeach
-
+                    
+                    @if ($data_dokumen->status === 'proses')
                     <div class="w-100 d-flex justify-content-end mt-5">
                         <a class="rounded-3 btn btn-primary w-auto" role="button" data-bs-toggle="modal" data-bs-target="#konfirmasiButton">Submit <i class="fa-solid fa-chevron-right"></i></i></a>                   
-                    </div>                
+                    </div>
                     {{-- Confirmation Modal --}}
                     <div class="modal fade" id="konfirmasiButton" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -161,11 +162,14 @@
                             </div>
                         </div>
                     </div>
+                    @else
+                    <div class="w-100 d-flex justify-content-end mt-5 no-print">
+                        <button type="button" class="rounded-3 btn btn-primary w-auto" onclick="printCard('printableCard')">Print <i class="fa-solid fa-chevron-right"></i></i></a>
+                    </div>
+                    @endif
                 </form>
             </div>            
         </section>
-        {{-- Pagination --}}
-        <div id="pagination-links"></div>
     </main>
     <footer class="footer fixed-bottom m-3 fw-medium text-secondary text-center">Copyright &copy; Pusat Survei Geologi, 2024</footer>
 
@@ -210,6 +214,28 @@
                 }
             });
         });
+
+        // Print card dokumen
+        function printCard(cardId) {
+            // Simpan content original
+            const originalContent = $('body').html();
+
+            // Ambil Id card
+            $('#' + cardId + ' .no-print').detach();
+            const printableContent = $('#' + cardId).clone();
+
+            setTimeout(() => {
+                // Timpa body dengan content print
+                $('body').html(printableContent);
+    
+                // Print halaman
+                window.print();
+                $('body').html(originalContent);
+            }, 500);
+
+            // Mengembalikan halaman menjadi semula
+            $('body').html(originalContent);
+        }
     </script>
 </body>
 </html>

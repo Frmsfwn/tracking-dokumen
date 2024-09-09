@@ -24,6 +24,9 @@
         }
     </style>
 
+    {{-- JQuery  --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
     <title>{{ config('app.name') }} | Dokumen Baru</title>
 </head>
 <body class="m-sm-3 mt-2 mx-1">
@@ -60,7 +63,7 @@
                 </ol>
             </nav>
         </div>                
-        <section class="card border-1 border-primary-subtle">
+        <section class="card border-1 border-primary-subtle" id="printableCard">
             <div class="card-header bg-secondary fw-semibold pb-1" style="--bs-bg-opacity: .2;">
                 <div class="d-flex justify-content-between">                                           
                     <h5 class="text-black">Status</h5>                    
@@ -97,9 +100,10 @@
                         </div>
                     </div>
                 @endforeach
-  
-                <div class="w-100 d-flex justify-content-between">
-                    <a class="rounded-3 btn btn-danger w-auto" data-bs-toggle="modal" data-bs-target="#Hapus">Hapus <i class="fa-solid fa-trash-can"></i></i></a>
+
+                @if ($data_dokumen->status === 'proses')
+                <div class="w-100">
+                    <a class="rounded-3 btn btn-danger w-auto" data-bs-toggle="modal" data-bs-target="#Hapus">Hapus <i class="fa-solid fa-trash-can"></i></a>
                 </div>                                
                 {{-- Delete Modal --}}
                 <div class="modal fade" id="Hapus" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
@@ -123,6 +127,34 @@
                         </div>
                     </div>
                 </div>
+                @else
+                <div class="w-100 d-flex justify-content-between mt-5 no-print">
+                    <a class="rounded-3 btn btn-danger w-auto" data-bs-toggle="modal" data-bs-target="#Hapus">Hapus <i class="fa-solid fa-trash-can"></i></a>
+                    <button type="button" class="rounded-3 btn btn-primary w-auto" onclick="printCard('printableCard')">Print <i class="fa-solid fa-chevron-right"></i></i></a>
+                </div>
+                {{-- Delete Modal --}}
+                <div class="modal fade" id="Hapus" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="ubahLabel">Hapus dokumen</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <strong>Apakah anda yakin ingin mnghapus Dokumen?</strong><br>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="rounded-3 btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                                <form action="{{ route('superAdmin.delete.dokumen', ['Dokumen' => $data_dokumen]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="rounded-3 btn btn-danger">Hapus <i class="fa-solid fa-trash-can"></i></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
             </div>            
         </section>
         {{-- Pagination --}}
@@ -153,6 +185,28 @@
         // Jalankan Listener ketika website di load atau berubah ukuran
         window.addEventListener('load', updateFooterPosition);
         window.addEventListener('resize', updateFooterPosition);
+
+        // Print card dokumen
+        function printCard(cardId) {
+            // Simpan content original
+            const originalContent = $('body').html();
+
+            // Ambil Id card
+            $('#' + cardId + ' .no-print').detach();
+            const printableContent = $('#' + cardId).clone();
+
+            setTimeout(() => {
+                // Timpa body dengan content print
+                $('body').html(printableContent);
+    
+                // Print halaman
+                window.print();
+                $('body').html(originalContent);
+            }, 500);
+
+            // Mengembalikan halaman menjadi semula
+            $('body').html(originalContent);
+        }
     </script>
 </body>
 </html>
