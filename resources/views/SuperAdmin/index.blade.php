@@ -107,7 +107,7 @@
                                     </div>
                                 </div>
                                 <div class="col-2 col-sm-1 text-center">
-                                    <a class="text-black toggle-icon" data-bs-toggle="collapse" href="#{{ $dataDokumen->id }}" role="button" aria-expanded="false" aria-controls="dokumen1"><i class="fa-solid fa-angle-up"></i></a>
+                                    <a class="toggle-icon" data-bs-toggle="collapse" href="#{{ $dataDokumen->id }}" role="button" aria-expanded="false" aria-controls="dokumen1"><i class="fa-solid fa-angle-up @if($dataDokumen->status === 'selesai') text-white @else text-black @endif"></i></a>
                                 </div>
                             </div>
                         </div>

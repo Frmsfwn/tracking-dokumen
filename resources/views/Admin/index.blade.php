@@ -66,6 +66,88 @@
                 </ol>
             </nav>
         </div>
+        {{-- Terakhir Edit --}}
+        <h5 class="fs-5 mt-3 mb-3 text-semibold">Terakhir Edit</h5>
+        <section class="row">
+            <div class="col">
+                {{-- Pengulangan Dokumen --}}
+                @forelse($data_terakhir as $dataTerakhir)
+                    <div class="card mb-4">
+                        <div class="card-header @if($dataTerakhir->status === 'proses') text-bg-warning @else text-bg-success @endif fw-semibold">
+                            <div class="row align-items-center">
+                                <div class="col-10 col-sm-11">
+                                    <div class="row g-1 g-sm-0 @if($dataTerakhir->status === 'selesai') justify-content-between @endif">
+                                        <div class="col-auto me-2 me-sm-0 col-sm-5">
+                                            <i class="@if($dataTerakhir->status === 'proses') fa-regular fa-hourglass-half @else fa-solid fa-check-double @endif me-2"></i> {{ $dataTerakhir->nomor_surat }}
+                                        </div>
+                                        @if($dataTerakhir->status === 'proses')
+                                            <span class="badge rounded-pill text-bg-danger col-4 col-sm-2">Sisa hari: 3</span>
+                                        @endif
+                                        <span class="@if($dataTerakhir->status === 'proses') @else text-white @endif fw-normal col-12 col-sm-5 text-sm-end">{{ \Carbon\Carbon::parse($dataTerakhir->tanggal_awal_dinas)->format('d/m/Y') }} s.d. {{ \Carbon\Carbon::parse($dataTerakhir->tanggal_akhir_dinas)->format('d/m/Y') }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-2 col-sm-1 text-center">
+                                    <a class="toggle-icon" data-bs-toggle="collapse" href="#last-{{ $dataTerakhir->id }}" role="button" aria-expanded="false" aria-controls="dokumen1"><i class="fa-solid fa-angle-up @if($dataTerakhir->status === 'selesai') text-white @else text-black @endif"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collapse" id="last-{{ $dataTerakhir->id }}">
+                            {{-- Pengulangan Timeline --}}
+                            @php
+                                $customOrder = [            
+                                    'Pengajuan Nota Dinas',
+                                    'Penerbitan Surat Dinas',
+                                    'Pembuatan Rampung',
+                                    'Penandatanganan Rampung',
+                                    'Penandatanganan PPK',
+                                    'Penandatanganan Kabag Umum',
+                                    'Proses SPBY',
+                                    'Proses Transfer',
+                                ];
+
+                                $data_tracking = $dataTerakhir->tracking->sort(function ($a, $b) use ($customOrder) {
+                                    $aIndex = array_search($a['status_dokumen'], $customOrder);
+                                    $bIndex = array_search($b['status_dokumen'], $customOrder);
+
+                                    if ($aIndex === false) $aIndex = PHP_INT_MAX;
+                                    if ($bIndex === false) $bIndex = PHP_INT_MAX;
+
+                                    return $aIndex <=> $bIndex;
+                                });
+                            @endphp
+                            @foreach($data_tracking->whereNotNull('opsi') as $dataTracking)
+                                <a href="{{ route('admin.status.dokumen', ['id' => $dataTerakhir->id]) }}" class="text-decoration-none">
+                                    <div class="card-body row gy-2 justify-content-between">
+                                        <div class="col-12 col-sm-6">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-shrink-0">
+                                                    <i class="@if($dataTracking->opsi === 'perbaiki') fa-solid fa-square-xmark fa-2xl text-danger @elseif($dataTracking->opsi === 'setuju') fa-solid fa-square-check fa-2xl text-success @endif"></i>
+                                                </div>
+                                                <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
+                                                    <span class="fw-medium text-black mb-1">{{ $dataTracking->status_dokumen }}</span>
+                                                    @if($dataTracking->opsi === 'perbaiki')
+                                                        <small class="text-secondary link-offset-1 text-decoration-underline fw-normal" style="font-size: .8rem">{{ $dataTracking->catatan }}</small>
+                                                    @endif
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-auto">
+                                            <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
+                                                <span class="fw-medium text-black">({{ $dataTracking->admin->nama }})</span>
+                                                <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">{{ $dataTracking->updated_at->setTimezone(new \DateTimeZone('Asia/Jakarta'))->format('d M Y H:i') }}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
+                        <div class="card-footer text-dark-emphasis" style="background-color: rgba(217, 217, 217, 1);">{{ $dataTerakhir->tim_teknis }}</div>
+                    </div>
+                @empty
+                    <h2 class="text-center w-100 text-secondary">Data Kosong!</h2>
+                @endforelse
+            </div>
+        </section>
         <div class="d-flex mt-3 mb-3 justify-content-between">
             <h5 class="fs-5 text-semibold">Daftar Dokumen</h5>
             {{-- Filter --}}
@@ -108,7 +190,7 @@
                                     </div>
                                 </div>
                                 <div class="col-2 col-sm-1 text-center">
-                                    <a class="text-black toggle-icon" data-bs-toggle="collapse" href="#{{ $dataDokumen->id }}" role="button" aria-expanded="false" aria-controls="dokumen1"><i class="fa-solid fa-angle-up"></i></a>
+                                    <a class="toggle-icon" data-bs-toggle="collapse" href="#{{ $dataDokumen->id }}" role="button" aria-expanded="false" aria-controls="dokumen1"><i class="fa-solid fa-angle-up @if($dataDokumen->status === 'selesai') text-white @else text-black @endif"></i></a>
                                 </div>
                             </div>
                         </div>

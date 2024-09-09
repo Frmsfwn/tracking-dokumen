@@ -180,9 +180,9 @@ class LoginController extends Controller
             }            
 
             return view('superAdmin.index')
-                ->with('data_dokumen',$data_dokumen)
-                ->with('jumlah_dokumen_proses',$jumlah_dokumen_proses)
-                ->with('filter',$filter);
+                ->with('data_dokumen', $data_dokumen)
+                ->with('jumlah_dokumen_proses', $jumlah_dokumen_proses)
+                ->with('filter', $filter);
 
         }elseif(Auth::user()->role === 'Admin') {
             
@@ -191,6 +191,8 @@ class LoginController extends Controller
 
             $data_dokumen = Dokumen::orderByRaw("FIELD(status, 'proses', 'selesai')")->paginate(8);
             $jumlah_dokumen_proses = Dokumen::where('status','proses')->count();
+            $data_terakhir = Dokumen::orderBy('updated_at', 'DESC')->limit(3)->get();
+
             
             if ($keyword) {
                 $data_dokumen = Dokumen::whereAny([
@@ -213,7 +215,8 @@ class LoginController extends Controller
             return view('admin.index')
                 ->with('data_dokumen',$data_dokumen)
                 ->with('jumlah_dokumen_proses',$jumlah_dokumen_proses)
-                ->with('filter',$filter);
+                ->with('filter',$filter)
+                ->with('data_terakhir', $data_terakhir);
 
         }elseif(Auth::user()->role === 'PIC') {
 
