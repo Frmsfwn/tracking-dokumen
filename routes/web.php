@@ -29,7 +29,8 @@ Route::group(['middleware' => 'preventBackHistory'], function(){
         Route::prefix('superAdmin')->name('superAdmin.')->middleware(['userAccess:SuperAdmin'])->group(function() {
 
             route::get('/homepage', [LoginController::class, 'homepage'])->name('homepage');
-            route::get('/data/dokumen/status', [SuperAdminController::class, 'statusDokumen'])->name('status.dokumen');
+            route::get('/data/dokumen/{id}/status', [SuperAdminController::class, 'statusDokumen'])->name('status.dokumen');
+            route::delete('/data/dokumen/{Dokumen}/delete', [SuperAdminController::class, 'deleteDokumen'])->name('delete.dokumen');
             route::get('/data/user', [SuperAdminController::class, 'dataUser'])->name('show.user');
             route::post('/data/user/create', [SuperAdminController::class, 'createUser'])->name('create.user');
             route::put('/data/user/{User}/update', [SuperAdminController::class, 'updateUser'])->name('update.user');

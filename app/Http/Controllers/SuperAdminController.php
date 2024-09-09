@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dokumen;
+use App\Models\TrackingDokumen;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -156,10 +158,58 @@ class SuperAdminController extends Controller
 
     }
 
-    function statusDokumen()
+    function statusDokumen($id)
     {
 
-        return view('SuperAdmin.ubahStatus');
+        $data_dokumen = Dokumen::find($id);
+        $customOrder = [            
+            'Pengajuan Nota Dinas',
+            'Penerbitan Surat Dinas',
+            'Pembuatan Rampung',
+            'Penandatanganan Rampung',
+            'Penandatanganan PPK',
+            'Penandatanganan Kabag Umum',
+            'Proses SPBY',
+            'Proses Transfer',
+        ];
+        $data_tracking = 
+            $data_dokumen->tracking->sort(function ($a, $b) use ($customOrder) {
+                $aIndex = array_search($a['status_dokumen'], $customOrder);
+                $bIndex = array_search($b['status_dokumen'], $customOrder);
+                
+                // Handle case where item might not be found in the customOrder array
+                if ($aIndex === false) $aIndex = PHP_INT_MAX;
+                if ($bIndex === false) $bIndex = PHP_INT_MAX;
+                
+                return $aIndex <=> $bIndex;
+            });
+
+        return view('superAdmin.ubahStatus')
+            ->with('data_dokumen',$data_dokumen)
+            ->with('data_tracking',$data_tracking);
+
+    }
+
+    function deleteDokumen(Dokumen $Dokumen)
+    {
+
+        $tracking_dokumen = TrackingDokumen::where('id_dokumen',$Dokumen->id)->get();
+
+        Dokumen::destroy($Dokumen->id);
+
+        foreach($tracking_dokumen as $trackingDokumen) {
+
+            TrackingDokumen::destroy($trackingDokumen->id);
+
+        }
+
+        flash()
+        ->killer(true)
+        ->layout('bottomRight')
+        ->timeout(3000)
+        ->success('<b>Berhasil!</b><br>Data berhasil dihapus.');
+
+        return redirect(route('superAdmin.homepage'));
 
     }
 

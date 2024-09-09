@@ -154,7 +154,24 @@ class LoginController extends Controller
         
         if(Auth::user()->role === 'SuperAdmin') {
 
-            return view('superAdmin.index');
+            $keyword = $request->input('keyword');
+            
+            $data_dokumen = Dokumen::paginate(8);
+            
+            if ($keyword) {
+                $data_dokumen = Dokumen::whereAny([
+                    'nomor_surat',
+                    'tim_teknis',
+                    'tanggal_awal_dinas',
+                    'tanggal_akhir_dinas',
+                    'sisa_hari',
+                    'status'], 'LIKE', "%{$keyword}%")
+                    ->orderBy('status','ASC')
+                    ->paginate(8);
+            }
+
+            return view('superAdmin.index')
+                ->with('data_dokumen',$data_dokumen);
 
         }elseif(Auth::user()->role === 'Admin') {
             

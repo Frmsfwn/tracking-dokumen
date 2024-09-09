@@ -33,7 +33,7 @@
             <span class="navbar-brand mb-0 fs-5 fs-md-4 me-2 me-sm-3"><i class="fa-regular fa-clock fa-sm me-2"></i>Document Tracking - PSG</span>
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-body-secondary fw-medium text-capitalize" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    admin
+                    {{ Auth::user()->role }}/<b>{{ Auth::user()->username }}</b>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="{{ route('superAdmin.show.user') }}">Data User</a></li>
@@ -45,8 +45,8 @@
     </nav>
     <main class="container-md mt-3">
         {{-- Pencarian --}}
-        <form action="" class="position-relative">
-            <input type="text" class="form-control border-primary-subtle" role="search" placeholder="Pencarian" aria-label="search" id="search" aria-describedby="search">
+        <form action="/superAdmin/homepage" class="position-relative">
+            <input type="text" class="form-control border-primary-subtle" name="keyword" role="search" placeholder="Pencarian" aria-label="search" id="search" aria-describedby="search">
             <button type="submit" class="btn btn-focus position-absolute end-0 top-50 translate-middle-y" style="border-color: transparent">
                 <i class="fa-solid fa-magnifying-glass fa-lg text-primary"></i>
             </button>
@@ -65,158 +65,39 @@
                 <div class="d-flex justify-content-between">                                           
                     <h5 class="text-black">Status</h5>                    
                     <div class="text-end">
-                        <span class="text-black text-opacity-50">SI/2024/001-001</span>
+                        <span class="text-black text-opacity-50">{{ $data_dokumen->nomor_surat }}</span>
                     </div>
                 </div>
             </div>
-            <div class="card-body ">                
-                <div class="row gy-2 justify-content-between mb-3">
-                    <div class="col-12 col-sm-6">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-shrink-0">
-                                <i class="fa-solid fa-square-check fa-2xl text-success"></i>
+            <div class="card-body "> 
+                @foreach($data_tracking as $dataTracking)
+                    <div class="row gy-2 justify-content-between mb-3">
+                        <div class="col-12 col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="@if($dataTracking->opsi === null) fa-solid fa-square-check fa-2xl text-secondary @elseif($dataTracking->opsi === 'perbaiki') fa-solid fa-square-xmark fa-2xl text-danger @elseif($dataTracking->opsi === 'setuju') fa-solid fa-square-check fa-2xl text-success @endif"></i>
+                                </div>
+                                <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
+                                    <span class="fw-medium text-black mb-1">{{ $dataTracking->status_dokumen }}</span> 
+                                    @if($dataTracking->opsi === 'perbaiki')
+                                        <small class="text-secondary link-offset-1 text-decoration-underline fw-normal" style="font-size: .8rem">{{ $dataTracking->catatan }}</small>
+                                    @endif
+                                </h5>
                             </div>
-                            <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
-                                <span class="fw-medium text-black mb-1">Pengajuan Nota Dinas</span>                                
-                            </h5>
+                        </div>
+                        <div class="col-12 col-sm-auto">
+                            <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
+                                @if($dataTracking->opsi === null)
+
+                                @else
+                                    <span class="fw-medium text-black">({{ optional($dataTracking->admin)->nama }})</span>
+                                    <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">{{ $dataTracking->updated_at->setTimezone(new \DateTimeZone('Asia/Jakarta'))->format('d M Y H:i') }}</small>            
+                                @endif
+                            </div>
                         </div>
                     </div>
-                    <div class="col-12 col-sm-auto">
-                        <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
-                            <span class="fw-medium text-black">(Admin SPPD 1)</span>
-                            <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">10 Agustus 2024 10:00</small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row gy-2 justify-content-between mb-3">
-                    <div class="col-12 col-sm-6">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-shrink-0">
-                                <i class="fa-solid fa-square-check fa-2xl text-success"></i>
-                            </div>
-                            <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
-                                <span class="fw-medium text-black mb-1">Pengajuan Surat Dinas</span>                                
-                            </h5>
-                        </div>
-                    </div>                    
-                    <div class="col-12 col-sm-auto">
-                        <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
-                            <span class="fw-medium text-black">(Admin SPPD 1)</span>
-                            <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">10 Agustus 2024 10:00</small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row gy-2 justify-content-between mb-3">
-                    <div class="col-12 col-sm-6">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-shrink-0">
-                                <i class="fa-solid fa-square-check fa-2xl text-secondary"></i>
-                            </div>
-                            <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
-                                <span class="fw-medium text-black mb-1">Pembuatan Rampung</span>                                
-                            </h5>
-                        </div>
-                    </div>                    
-                    <div class="col-12 col-sm-auto">
-                        <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
-                            <span class="fs-3">-</span>
-                        </div>
-                    </div>                                        
-                </div>
-
-                <div class="row gy-2 justify-content-between mb-3">
-                    <div class="col-12 col-sm-6">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-shrink-0">
-                                <i class="fa-solid fa-square-check fa-2xl text-secondary"></i>
-                            </div>
-                            <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
-                                <span class="fw-medium text-black mb-1">Penandatanganan Rampung</span>                                
-                            </h5>
-                        </div>
-                    </div>                    
-                    <div class="col-12 col-sm-auto">
-                        <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
-                            <span class="fs-3">-</span>
-                        </div>
-                    </div>                    
-                </div>
-
-                <div class="row gy-2 justify-content-between mb-3">
-                    <div class="col-12 col-sm-6">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-shrink-0">
-                                <i class="fa-solid fa-square-check fa-2xl text-secondary"></i>
-                            </div>
-                            <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
-                                <span class="fw-medium text-black mb-1">Penandatanganan PPK</span>                                
-                            </h5>
-                        </div>
-                    </div>                    
-                    <div class="col-12 col-sm-auto">
-                        <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
-                            <span class="fs-3">-</span>
-                        </div>
-                    </div>                    
-                </div>
-
-                <div class="row gy-2 justify-content-between mb-3">
-                    <div class="col-12 col-sm-6">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-shrink-0">
-                                <i class="fa-solid fa-square-check fa-2xl text-secondary"></i>
-                            </div>
-                            <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
-                                <span class="fw-medium text-black mb-1">Penandatanganan Kabag Umum</span>                                
-                            </h5>
-                        </div>
-                    </div>                    
-                    <div class="col-12 col-sm-auto">
-                        <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
-                            <span class="fs-3">-</span>
-                        </div>
-                    </div>                    
-                </div>
-
-                <div class="row gy-2 justify-content-between mb-3">
-                    <div class="col-12 col-sm-6">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-shrink-0">
-                                <i class="fa-solid fa-square-check fa-2xl text-secondary"></i>
-                            </div>
-                            <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
-                                <span class="fw-medium text-black mb-1">Proses SPBY</span>                                
-                            </h5>
-                        </div>
-                    </div>                    
-                    <div class="col-12 col-sm-auto">
-                        <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
-                            <span class="fs-3">-</span>
-                        </div>
-                    </div>                     
-                </div>
-
-                <div class="row gy-2 justify-content-between mb-3">
-                    <div class="col-12 col-sm-6">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-shrink-0">
-                                <i class="fa-solid fa-square-xmark fa-2xl text-danger"></i>
-                            </div>
-                            <h5 class="card-title link-offset-1 flex-grow-1 d-flex flex-column ms-3">
-                                <span class="fw-medium text-black mb-1">Proses Transfer</span>                                
-                                <small class="text-secondary link-offset-1 text-decoration-underline fw-normal" style="font-size: .8rem">Pengajuan ditolak karena tidak memenuhi kriteria pengajuan. Mohon Ajukan ulang</small>
-                            </h5>
-                        </div>
-                    </div>                    
-                    <div class="col-12 col-sm-auto">
-                        <div class="d-flex ms-4 ps-3 ms-sm-0 ps-sm-0 flex-column">
-                            <span class="fw-medium text-black">(Admin Keuangan)</span>
-                            <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">10 Agustus 2024 10:00</small>
-                        </div>
-                    </div>                     
-                </div>
+                @endforeach
+  
                 <div class="w-100 d-flex justify-content-between">
                     <a class="rounded-3 btn btn-danger w-auto" data-bs-toggle="modal" data-bs-target="#Hapus">Hapus <i class="fa-solid fa-trash-can"></i></i></a>
                 </div>                                
@@ -233,9 +114,9 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="rounded-3 btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                                <form action="">
-                                @csrf
-                                @method('DELETE')
+                                <form action="{{ route('superAdmin.delete.dokumen', ['Dokumen' => $data_dokumen]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
                                     <button type="submit" class="rounded-3 btn btn-danger">Hapus <i class="fa-solid fa-trash-can"></i></i></button>
                                 </form>
                             </div>
