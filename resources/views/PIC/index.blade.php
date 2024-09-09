@@ -41,7 +41,7 @@
             <span class="navbar-brand mb-0 fs-5 fs-md-4 me-2 me-sm-3"><i class="fa-regular fa-clock fa-sm me-2"></i>Document Tracking - PSG</span>
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-body-secondary fw-medium text-capitalize" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    PIC
+                    {{ Auth::user()->role }}/<b>{{ Auth::user()->username }}</b>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="{{ route('edit.password') }}">Ubah Password</a></li>
