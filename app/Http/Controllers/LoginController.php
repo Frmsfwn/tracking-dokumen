@@ -7,6 +7,7 @@ use App\Models\TrackingDokumen;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
@@ -157,7 +158,8 @@ class LoginController extends Controller
             $keyword = $request->input('keyword');
             $filter = $request->input('filter', 'all');
 
-            $data_dokumen = Dokumen::paginate(8);
+            $data_dokumen = Dokumen::orderByRaw("FIELD(status, 'proses', 'selesai')")->paginate(8);
+            $jumlah_dokumen_proses = Dokumen::where('status','proses')->count();
             
             if ($keyword) {
                 $data_dokumen = Dokumen::whereAny([
@@ -167,7 +169,7 @@ class LoginController extends Controller
                     'tanggal_akhir_dinas',
                     'sisa_hari',
                     'status'], 'LIKE', "%{$keyword}%")
-                    ->orderBy('status', 'ASC')
+                    ->orderByRaw("FIELD(status, 'proses', 'selesai')")
                     ->paginate(8);
             }
 
@@ -179,6 +181,7 @@ class LoginController extends Controller
 
             return view('superAdmin.index')
                 ->with('data_dokumen',$data_dokumen)
+                ->with('jumlah_dokumen_proses',$jumlah_dokumen_proses)
                 ->with('filter',$filter);
 
         }elseif(Auth::user()->role === 'Admin') {
@@ -186,7 +189,8 @@ class LoginController extends Controller
             $keyword = $request->input('keyword');
             $filter = $request->input('filter', 'all');
 
-            $data_dokumen = Dokumen::paginate(8);
+            $data_dokumen = Dokumen::orderByRaw("FIELD(status, 'proses', 'selesai')")->paginate(8);
+            $jumlah_dokumen_proses = Dokumen::where('status','proses')->count();
             
             if ($keyword) {
                 $data_dokumen = Dokumen::whereAny([
@@ -196,7 +200,7 @@ class LoginController extends Controller
                     'tanggal_akhir_dinas',
                     'sisa_hari',
                     'status'], 'LIKE', "%{$keyword}%")
-                    ->orderBy('status', 'ASC')
+                    ->orderByRaw("FIELD(status, 'proses', 'selesai')")
                     ->paginate(8);
             }
 
@@ -208,6 +212,7 @@ class LoginController extends Controller
 
             return view('admin.index')
                 ->with('data_dokumen',$data_dokumen)
+                ->with('jumlah_dokumen_proses',$jumlah_dokumen_proses)
                 ->with('filter',$filter);
 
         }elseif(Auth::user()->role === 'PIC') {
@@ -215,7 +220,7 @@ class LoginController extends Controller
             $keyword = $request->input('keyword');
             $filter = $request->input('filter', 'all');
 
-            $data_dokumen = Dokumen::paginate(8);
+            $data_dokumen = Dokumen::orderByRaw("FIELD(status, 'proses', 'selesai')")->paginate(8);
             
             if ($keyword) {
                 $data_dokumen = Dokumen::whereAny([
@@ -225,7 +230,7 @@ class LoginController extends Controller
                     'tanggal_akhir_dinas',
                     'sisa_hari',
                     'status'], 'LIKE', "%{$keyword}%")
-                    ->orderBy('status', 'ASC')
+                    ->orderByRaw("FIELD(status, 'proses', 'selesai')")
                     ->paginate(8);
             }
 
