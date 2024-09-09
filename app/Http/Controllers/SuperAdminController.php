@@ -19,7 +19,9 @@ class SuperAdminController extends Controller
         $data = User::whereNot('role', 'SuperAdmin');
             
         if ($keyword) {
-            $data->whereAny(['nip','nama','role'], 'LIKE', "%{$keyword}%");
+            $data->whereAny(['nip','nama','role'], 'LIKE', "%{$keyword}%")
+            ->orderBy('updated_at', 'DESC')
+            ->paginate(8);
         }
     
         if ($filter) {

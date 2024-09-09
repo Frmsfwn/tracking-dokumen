@@ -139,7 +139,7 @@
             @endforelse
         </section>
         {{-- Pagination --}}
-        <div id="pagination-links"></div>
+        <div id="pagination-links">{!! $data_user->links() !!}</div>
     </main>
     <footer class="footer z-n1 fixed-bottom m-3 fw-medium text-secondary text-center">Copyright &copy; Pusat Survei Geologi, 2024</footer>
 

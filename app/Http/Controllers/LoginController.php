@@ -173,7 +173,7 @@ class LoginController extends Controller
 
             if ($filter) {
                 if ($filter == 'process') {
-                    $data_dokumen = Dokumen::where('status', 'proses')->get();
+                    $data_dokumen = Dokumen::where('status', 'proses')->paginate(8);
                 }
             }            
 
@@ -202,7 +202,7 @@ class LoginController extends Controller
 
             if ($filter) {
                 if ($filter == 'process') {
-                    $data_dokumen = Dokumen::where('status', 'proses')->get();
+                    $data_dokumen = Dokumen::where('status', 'proses')->paginate(8);
                 }
             }
 
@@ -231,7 +231,7 @@ class LoginController extends Controller
 
             if ($filter) {
                 if ($filter == 'process') {
-                    $data_dokumen = Dokumen::where('status', 'proses')->get();
+                    $data_dokumen = Dokumen::where('status', 'proses')->paginate(8);
                 }
             }
 
