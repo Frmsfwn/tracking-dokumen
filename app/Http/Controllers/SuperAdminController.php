@@ -59,6 +59,7 @@ class SuperAdminController extends Controller
             'role.required' => 'Role tidak dapat kosong.',
             'role.in' => 'Role tidak valid.',
             'tim_teknis.required' => 'Tim Teknis tidak dapat kosong.',
+            'tim_teknis.required_if' => 'Tim Teknis wajib diisi jika role PIC.',
             'tim_teknis.in' => 'Tim Teknis tidak valid.',
         
         ];
