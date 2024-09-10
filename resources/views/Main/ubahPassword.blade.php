@@ -56,7 +56,7 @@
             <span class="navbar-brand mb-0 fs-5 fs-md-4 me-2 me-sm-3"><i class="fa-regular fa-clock fa-sm me-2"></i>Document Tracking - PSG</span>
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-body-secondary fw-medium text-capitalize" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    admin
+                    {{ Auth::user()->role }}/<b>{{ Auth::user()->username }}</b>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">                    
                     <li><a class="dropdown-item" href="/logout">Logout</a></li>
@@ -66,7 +66,7 @@
     </nav>
     <main class="container-md mt-3 ">        
         <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
-            <a href="/" class="rounded-pill btn btn-secondary px-4"><i class="fa-solid fa-chevron-left"></i> Kembali</a>
+            <a href="/" class="rounded-3 btn btn-secondary px-4"><i class="fa-solid fa-chevron-left"></i> Kembali</a>
             <h5 class="fs-5 text-semibold"><i class="fa-solid fa-lock"></i> Ubah Password</h5>   
         </div>
         
@@ -105,7 +105,7 @@
                 @enderror
             </div>
             <div class="w-100 d-flex justify-content-end ">
-                <a class="rounded-pill btn btn-primary w-25" data-bs-toggle="modal" data-bs-target="#konfirmasiButton">Ubah <i class="fa-solid fa-chevron-right"></i></a>
+                <a class="rounded-3 btn btn-primary w-25" data-bs-toggle="modal" data-bs-target="#konfirmasiButton">Ubah <i class="fa-solid fa-chevron-right"></i></a>
             </div>
                 
             {{-- Confirmation Modal --}}
@@ -120,8 +120,8 @@
                             <strong>Apakah anda yakin ingin mengubah Password?</strong><br>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="rounded-pill btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                            <button type="submit" class="rounded-pill btn btn-primary">Ubah <i class="fa-solid fa-chevron-right"></i></button>
+                            <button type="button" class="rounded-3 btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                            <button type="submit" class="rounded-3 btn btn-primary">Ubah <i class="fa-solid fa-chevron-right"></i></button>
                         </div>
                     </div>
                 </div>

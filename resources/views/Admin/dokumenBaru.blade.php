@@ -45,7 +45,7 @@
     <main class="container-md mt-3">
         {{-- Pencarian --}}
         <form action="/admin/homepage" class="position-relative">
-            <input type="text" class="form-control border-primary-subtle" name="keyword" role="search" placeholder="Pencarian" aria-label="search" id="search" aria-describedby="search">
+            <input type="text" class="form-control border-primary-subtle" name="keyword" role="search" placeholder="Cari dokumen" aria-label="search" id="search" aria-describedby="search">
             <button type="submit" class="btn btn-focus position-absolute end-0 top-50 translate-middle-y" style="border-color: transparent">
                 <i class="fa-solid fa-magnifying-glass fa-lg text-primary"></i>
             </button>
