@@ -225,6 +225,9 @@ class LoginController extends Controller
 
             $data_dokumen = Dokumen::where('tim_teknis', Auth::user()->tim_teknis)->
                             orderByRaw("FIELD(status, 'proses', 'selesai')")->paginate(8);
+                            
+            $jumlah_dokumen_proses = Dokumen::where('tim_teknis', Auth::user()->tim_teknis)
+                            ->where('status','proses')->count();
             
             if ($keyword) {
                 $data_dokumen = Dokumen::where('tim_teknis', Auth::user()->tim_teknis)->
@@ -248,6 +251,7 @@ class LoginController extends Controller
 
             return view('pic.index')
                 ->with('data_dokumen',$data_dokumen)
+                ->with('jumlah_dokumen_proses',$jumlah_dokumen_proses)
                 ->with('filter',$filter);
 
         }
