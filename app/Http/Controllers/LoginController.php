@@ -223,10 +223,12 @@ class LoginController extends Controller
             $keyword = $request->input('keyword');
             $filter = $request->input('filter', 'all');
 
-            $data_dokumen = Dokumen::orderByRaw("FIELD(status, 'proses', 'selesai')")->paginate(8);
+            $data_dokumen = Dokumen::where('tim_teknis', Auth::user()->tim_teknis)->
+                            orderByRaw("FIELD(status, 'proses', 'selesai')")->paginate(8);
             
             if ($keyword) {
-                $data_dokumen = Dokumen::whereAny([
+                $data_dokumen = Dokumen::where('tim_teknis', Auth::user()->tim_teknis)->
+                whereAny([
                     'nomor_surat',
                     'tim_teknis',
                     'tanggal_awal_dinas',
@@ -239,7 +241,8 @@ class LoginController extends Controller
 
             if ($filter) {
                 if ($filter == 'process') {
-                    $data_dokumen = Dokumen::where('status', 'proses')->paginate(8);
+                    $data_dokumen = Dokumen::where('tim_teknis', Auth::user()->tim_teknis)->
+                                        where('status', 'proses')->paginate(8);
                 }
             }
 
