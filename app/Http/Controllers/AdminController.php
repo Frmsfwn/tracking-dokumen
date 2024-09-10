@@ -124,7 +124,7 @@ class AdminController extends Controller
         ->timeout(3000)
         ->success('<b>Berhasil!</b><br>Data berhasil ditambahkan.');
 
-        return redirect(route('admin.homepage'));
+        return redirect(route('admin.status.dokumen', ['id' => $id_dokumen]));
     }
 
     function statusDokumen($id)
@@ -187,6 +187,9 @@ class AdminController extends Controller
 
         ]);
 
+        $Dokumen->updated_at = now();
+        $Dokumen->save();
+
         if($tracking->status_dokumen === 'Proses Transfer') {
 
             if($tracking->opsi === 'setuju') {
@@ -205,7 +208,7 @@ class AdminController extends Controller
         ->timeout(3000)
         ->success('<b>Berhasil!</b><br>Data berhasil disimpan.');
 
-        return redirect(route('admin.homepage'));
+        return redirect(route('admin.status.dokumen', ['id' => $Dokumen->id]));
     }
     
 }
