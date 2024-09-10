@@ -9,7 +9,6 @@ return new class extends Migration
     public function up(): void
     {
         $data_tim_teknis = [
-
             'Sistem Informasi dan Humas',
             'Perpustakaan, Ketatausahaan dan Kearsipan',
             'Perencanaan',

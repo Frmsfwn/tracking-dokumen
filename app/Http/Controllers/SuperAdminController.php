@@ -19,7 +19,7 @@ class SuperAdminController extends Controller
         $data = User::whereNot('role', 'SuperAdmin');
             
         if ($keyword) {
-            $data->whereAny(['nip','nama','role'], 'LIKE', "%{$keyword}%")
+            $data->whereAny(['nip','nama','role','tim_teknis'], 'LIKE', "%{$keyword}%")
             ->orderBy('updated_at', 'DESC')
             ->paginate(8);
         }
@@ -58,7 +58,26 @@ class SuperAdminController extends Controller
             'password.required' => 'Password tidak dapat kosong.',
             'role.required' => 'Role tidak dapat kosong.',
             'role.in' => 'Role tidak valid.',
+            'tim_teknis.required' => 'Tim Teknis tidak dapat kosong.',
+            'tim_teknis.in' => 'Tim Teknis tidak valid.',
         
+        ];
+
+        $data_tim_teknis = [
+            'Sistem Informasi dan Humas',
+            'Perpustakaan, Ketatausahaan dan Kearsipan',
+            'Perencanaan',
+            'Keuangan dan BMN',
+            'Perlengkapan dan Kerumahtanggaan',
+            'Hukum dan Kerjasama',
+            'Ortala dan Kepegawaian',
+            'Pemetaan Sistematik',
+            'Pemetaan Tematik',
+            'Survei Umum Migas',
+            'Rekomendasi Wilayah Keprospekan Migas',
+            'Geopark Nasional dan Pusat Informasi Geologi',
+            'Warisan Geologi',
+            'Pengembangan Konsep Geosains',            
         ];
 
         flash()
@@ -74,6 +93,7 @@ class SuperAdminController extends Controller
             'username' => 'required|max:25|unique:user,username',
             'password' => ['required','min:8','max:16','regex:/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/'],
             'role' => 'required|in:SuperAdmin,Admin,PIC',
+            'tim_teknis' => ['required_if:role,PIC', Rule::in($data_tim_teknis)],
 
         ],$messages)->validateWithBag('tambah_data');
 
@@ -84,6 +104,7 @@ class SuperAdminController extends Controller
             'username' => $request->input('username'),
             'password' => bcrypt($request->input('password')),
             'role' => $request->input('role'),
+            'tim_teknis' => $request->input('role') == 'PIC' ? $request->input('tim_teknis') : null,
 
         ];
 

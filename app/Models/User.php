@@ -25,6 +25,7 @@ class User extends Authenticatable
         'username',
         'password',
         'role',
+        'tim_teknis',
     ];
 
     protected $hidden = [
@@ -48,6 +49,15 @@ class User extends Authenticatable
     public function tracking(): BelongsTo
     {
         return $this->belongsTo(TrackingDokumen::class, 'id', 'id_admin');
+    }
+
+    public function setTimTeknisAttribute($value)
+    {
+        if ($this->attributes['role'] === 'PIC') {
+            $this->attributes['tim_teknis'] = $value;
+        } else {
+            $this->attributes['tim_teknis'] = null;
+        }
     }
 
 }
