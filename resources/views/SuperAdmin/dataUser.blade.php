@@ -30,10 +30,6 @@
             transition: transform 0.3s ease;
         }
         
-        #tim_teknis_field {
-            display: none;
-        }
-        
         @media (min-width: 768px) {
             .fs-md-4 {
                 font-size: calc(1.275rem + 0.3vw) !important;
@@ -74,7 +70,7 @@
     <main class="container-md mt-3">
         {{-- Pencarian --}}
         <form action="" class="position-relative">
-            <input type="text" name="keyword" class="form-control border-primary-subtle" role="search" placeholder="Pencarian" aria-label="search" id="search" aria-describedby="search">
+            <input type="text" name="keyword" class="form-control border-primary-subtle" role="search" placeholder="Cari data User" aria-label="search" id="search" aria-describedby="search">
             <button type="submit" class="btn btn-focus position-absolute end-0 top-50 translate-middle-y" style="border-color: transparent">
                 <i class="fa-solid fa-magnifying-glass fa-lg text-primary"></i>
             </button>
@@ -127,13 +123,7 @@
                             <li class="list-group-item">
                                 <h5 class="card-title">Role :</h5> 
                                 <h6 class="card-text">{{ $dataUser->role }}</h6>
-                            </li>
-                            @if ( $dataUser->role == 'PIC' )
-                                <li class="list-group-item">
-                                    <h5 class="card-title">Tim Teknis :</h5> 
-                                    <h6 class="card-text">{{ $dataUser->tim_teknis }}</h6>
-                                </li>                                                                                 
-                            @endif
+                            </li>                                             
                             <li class="list-group-item"> 
                                 <div class="d-flex justify-content-between">
                                     <button class="btn btn-warning rounded-3 w-50 me-1" data-bs-toggle="modal" data-bs-target="#modalUbahData{{ $dataUser->id }}">Ubah</button>
@@ -238,41 +228,15 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="row justify-content-between text-left mb-2">
-                            <div class="col-sm-12 flex-column d-flex">
-                                <strong class="text-start"><label for="role" class="form-label">Role<span class="text-danger">*</span></label></strong>
-                                <select id="role" name="role" class="form-select @error('role', 'tambah_data') is-invalid @enderror" @required(true)>
-                                    <option value="Admin" @selected(old('role') === 'Admin')>Admin</option>
-                                    <option value="PIC" @selected(old('role') === 'PIC')>PIC</option>
-                                </select>
-                                @error('role', 'tambah_data')
-                                    <div class="text-danger text-start"><small>{{ $message }}</small></div>
-                                @enderror
-                            </div>
-                        </div>
                         <div class="col-sm-12 flex-column d-flex">
-                            <div id="tim_teknis_field">
-                                <strong class="text-start"><label for="tim_teknis" class="form-label">Tim Teknis<span class="text-danger">*</span></label></strong>
-                                <select name="tim_teknis" id="tim_teknis" class="form-select border-2 @error('tim_teknis', 'tambah_data') is-invalid @enderror" @required(true)>
-                                    <option value="Sistem Informasi dan Humas" @selected(old('tim_teknis') === 'Sistem Informasi dan Humas')>Sistem Informasi dan Humas</option>
-                                    <option value="Perpustakaan, Ketatausahaan dan Kearsipan" @selected(old('tim_teknis') === 'Perpustakaan, Ketatausahaan dan Kearsipan')>Perpustakaan, Ketatausahaan dan Kearsipan</option>
-                                    <option value="Perencanaan" @selected(old('tim_teknis') === 'Perencanaan')>Perencanaan</option>
-                                    <option value="Keuangan dan BMN" @selected(old('tim_teknis') === 'Keuangan dan BMN')>Keuangan dan BMN</option>
-                                    <option value="Perlengkapan dan Kerumahtanggaan" @selected(old('tim_teknis') === 'Perlengkapan dan Kerumahtanggaan')>Perlengkapan dan Kerumahtanggaan</option>
-                                    <option value="Hukum dan Kerjasama" @selected(old('tim_teknis') === 'Hukum dan Kerjasama')>Hukum dan Kerjasama</option>
-                                    <option value="Ortala dan Kepegawaian" @selected(old('tim_teknis') === 'Ortala dan Kepegawaian')>Ortala dan Kepegawaian</option>
-                                    <option value="Pemetaan Sistematik" @selected(old('tim_teknis') === 'Pemetaan Sistematik')>Pemetaan Sistematik</option>
-                                    <option value="Pemetaan Tematik" @selected(old('tim_teknis') === 'Pemetaan Tematik')>Pemetaan Tematik</option>
-                                    <option value="Survei Umum Migas" @selected(old('tim_teknis') === 'Survei Umum Migas')>Survei Umum Migas</option>
-                                    <option value="Rekomendasi Wilayah Keprospekan Migas" @selected(old('tim_teknis') === 'Rekomendasi Wilayah Keprospekan Migas')>Rekomendasi Wilayah Keprospekan Migas</option>
-                                    <option value="Geopark Nasional dan Pusat Informasi Geologi" @selected(old('tim_teknis') === 'Geopark Nasional dan Pusat Informasi Geologi')>Geopark Nasional dan  Pusat Informasi Geologi</option>
-                                    <option value="Warisan Geologi" @selected(old('tim_teknis') === 'Warisan Geologi')>Warisan Geologi</option>
-                                    <option value="Pengembangan Konsep Geosains" @selected(old('tim_teknis') === 'Pengembangan Konsep Geosains')>Pengembangan Konsep Geosains</option>
-                                </select>
-                                @error('tim_teknis', 'tambah_data')
-                                    <div class="text-danger text-start"><small>{{ $message }}</small></div>
-                                @enderror
-                            </div>
+                            <strong class="text-start"><label for="role" class="form-label">Role<span class="text-danger">*</span></label></strong>
+                            <select id="role" name="role" class="form-select @error('role', 'tambah_data') is-invalid @enderror" @required(true)>
+                                <option value="Admin" @selected(old('role') === 'Admin')>Admin</option>
+                                <option value="PIC" @selected(old('role') === 'PIC')>PIC</option>
+                            </select>
+                            @error('role', 'tambah_data')
+                                <div class="text-danger text-start"><small>{{ $message }}</small></div>
+                            @enderror
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -329,7 +293,17 @@
                                     @error('password', $dataUser->id)
                                         <div class="text-danger"><small>{{ $errors->{$dataUser->id}->first('password') }}</small></div>
                                     @enderror
-                                </div>                                
+                                </div>
+                                <div class="col-sm-12 flex-column d-flex">
+                                    <strong class="text-start"><label for="role" class="form-label">Role<span class="text-danger">*</span></label></strong>
+                                    <select id="role" name="role" class="form-select @error('role', $dataUser->id) is-invalid @enderror" @required(true)>
+                                        <option value="Admin" @if($errors->hasBag($dataUser->id)) @selected(old('version') === 'Admin') @else @selected($dataUser->role === 'Admin') @endif>Admin</option>
+                                        <option value="PIC" @if($errors->hasBag($dataUser->id)) @selected(old('version') === 'PIC') @else @selected($dataUser->role === 'PIC') @endif>PIC</option>        
+                                    </select>
+                                    @error('role', $dataUser->id)
+                                        <div class="text-danger text-start"><small>{{ $message }}</small></div>
+                                    @enderror
+                                </div>                
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Simpan</button>
@@ -398,24 +372,6 @@
                     $(this).siblings('.toggle-password-icon').removeClass('end-0 top-50').addClass('end-reveal top-reveal');
                 }
             })
-        });
-        
-        $(document).ready(function() {
-            function toggleTimTeknis() {
-                var role = $('#role').val();
-                if (role === 'Admin') {
-                    $('#tim_teknis_field').hide(); 
-                    $('#tim_teknis').prop('disabled', true); 
-                } else {
-                    $('#tim_teknis_field').show(); 
-                    $('#tim_teknis').prop('disabled', false); 
-                }
-            }
-            toggleTimTeknis();
-
-            $('#role').on('change', function() {
-                toggleTimTeknis();
-            });
         });
     </script>
 </body>
