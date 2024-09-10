@@ -39,7 +39,6 @@
                     {{ Auth::user()->role }}/<b>{{ Auth::user()->username }}</b>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="{{ route('superAdmin.show.user') }}">Data User</a></li>
                     <li><a class="dropdown-item" href="{{ route('edit.password') }}">Ubah Password</a></li>
                     <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
                 </ul>
@@ -48,7 +47,7 @@
     </nav>
     <main class="container-md mt-3">
         {{-- Pencarian --}}
-        <form action="/superAdmin/homepage" class="position-relative">
+        <form action="/pic/homepage" class="position-relative">
             <input type="text" class="form-control border-primary-subtle" name="keyword" role="search" placeholder="Pencarian" aria-label="search" id="search" aria-describedby="search">
             <button type="submit" class="btn btn-focus position-absolute end-0 top-50 translate-middle-y" style="border-color: transparent">
                 <i class="fa-solid fa-magnifying-glass fa-lg text-primary"></i>
@@ -101,59 +100,10 @@
                     </div>
                 @endforeach
 
-                @if ($data_dokumen->status === 'proses')
-                <div class="w-100">
-                    <a class="rounded-3 btn btn-danger w-auto" data-bs-toggle="modal" data-bs-target="#Hapus">Hapus <i class="fa-solid fa-trash-can"></i></a>
-                </div>                                
-                {{-- Delete Modal --}}
-                <div class="modal fade" id="Hapus" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="ubahLabel">Hapus dokumen</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body text-center">
-                                <strong>Apakah anda yakin ingin mnghapus Dokumen?</strong><br>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="rounded-3 btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                                <form action="{{ route('superAdmin.delete.dokumen', ['Dokumen' => $data_dokumen]) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="rounded-3 btn btn-danger">Hapus <i class="fa-solid fa-trash-can"></i></i></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @else
-                <div class="w-100 d-flex justify-content-between mt-5 no-print">
-                    <a class="rounded-3 btn btn-danger w-auto" data-bs-toggle="modal" data-bs-target="#Hapus">Hapus <i class="fa-solid fa-trash-can"></i></a>
+                @if ($data_dokumen->status === 'selesai')
+                <div class="w-100 d-flex justify-content-end mt-5 no-print">                    
                     <button type="button" class="rounded-3 btn btn-primary w-auto" onclick="printCard('printableCard')">Print <i class="fa-solid fa-chevron-right"></i></i></a>
-                </div>
-                {{-- Delete Modal --}}
-                <div class="modal fade" id="Hapus" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="ubahLabel">Hapus dokumen</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body text-center">
-                                <strong>Apakah anda yakin ingin mnghapus Dokumen?</strong><br>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="rounded-3 btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                                <form action="{{ route('superAdmin.delete.dokumen', ['Dokumen' => $data_dokumen]) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="rounded-3 btn btn-danger">Hapus <i class="fa-solid fa-trash-can"></i></i></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </div>                
                 @endif
             </div>            
         </section>

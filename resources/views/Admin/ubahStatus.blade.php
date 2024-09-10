@@ -67,7 +67,7 @@
                 <div class="d-flex justify-content-between">                                           
                     <h5 class="text-black">Ubah Status</h5>                    
                     <div class="text-end">
-                        <span class="text-black text-opacity-50">{{ $data_dokumen->nomor_surat }}</span>
+                        <span class="text-black text-opacity-75">{{ $data_dokumen->nomor_surat }}</span>
                     </div>
                 </div>
             </div>

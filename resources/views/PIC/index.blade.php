@@ -119,7 +119,8 @@
                                     return $aIndex <=> $bIndex;
                                 });
                             @endphp
-                            @foreach($data_tracking->whereNotNull('opsi') as $dataTracking)                                
+                            @foreach($data_tracking->whereNotNull('opsi') as $dataTracking)
+                            <a href="{{ route('pic.status.dokumen', ['id' => $dataDokumen->id]) }}" class="text-decoration-none">                                
                                 <div class="card-body row gy-2 justify-content-between">
                                     <div class="col-12 col-sm-6">
                                         <div class="d-flex align-items-center">
@@ -140,7 +141,8 @@
                                             <small class="text-secondary link-offset-1 text-decoration-underline" style="font-size: .8rem">{{ $dataTracking->updated_at->setTimezone(new \DateTimeZone('Asia/Jakarta'))->format('d M Y H:i') }}</small>
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>
+                            </a>                                
                             @endforeach
                         </div>
                         <div class="card-footer text-dark-emphasis" style="background-color: rgba(217, 217, 217, 1);">{{ $dataDokumen->tim_teknis }}</div>

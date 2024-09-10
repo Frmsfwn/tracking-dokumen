@@ -254,6 +254,38 @@ class LoginController extends Controller
 
     }
 
+    function statusDokumen($id)
+    {
+
+        $data_dokumen = Dokumen::find($id);
+        $customOrder = [            
+            'Pengajuan Nota Dinas',
+            'Penerbitan Surat Dinas',
+            'Pembuatan Rampung',
+            'Penandatanganan Rampung',
+            'Penandatanganan PPK',
+            'Penandatanganan Kabag Umum',
+            'Proses SPBY',
+            'Proses Transfer',
+        ];
+        $data_tracking = 
+            $data_dokumen->tracking->sort(function ($a, $b) use ($customOrder) {
+                $aIndex = array_search($a['status_dokumen'], $customOrder);
+                $bIndex = array_search($b['status_dokumen'], $customOrder);
+                
+                // Handle case where item might not be found in the customOrder array
+                if ($aIndex === false) $aIndex = PHP_INT_MAX;
+                if ($bIndex === false) $bIndex = PHP_INT_MAX;
+                
+                return $aIndex <=> $bIndex;
+            });
+
+        return view('pic.ubahStatus')
+            ->with('data_dokumen',$data_dokumen)
+            ->with('data_tracking',$data_tracking);
+
+    }
+
     function logout()
     {
 

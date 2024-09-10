@@ -47,7 +47,7 @@ Route::group(['middleware' => 'preventBackHistory'], function(){
         });    
         Route::prefix('pic')->name('pic.')->middleware(['userAccess:PIC'])->group(function() {
             route::get('/homepage', [LoginController::class, 'homepage'])->name('homepage');
-
+            route::get('/data/dokumen/{id}/status', [LoginController::class, 'statusDokumen'])->name('status.dokumen');
 
         });
 
