@@ -27,7 +27,7 @@
     {{-- JQuery  --}}
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
-    <title>{{ config('app.name') }} | Dokumen Baru</title>
+    <title>{{ config('app.name') }} | Status Dokumen</title>
 </head>
 <body class="m-sm-3 mt-2 mx-1">
     {{-- Navbar --}}
