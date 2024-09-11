@@ -12,6 +12,9 @@
     {{-- JQuery  --}}
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
+    {{-- Google  reCAPTCHA --}}
+    <script async src="https://www.google.com/recaptcha/api.js"></script>
+
     {{-- Custom CSS --}}
     <style>
         .end-reveal {
@@ -61,6 +64,10 @@
                     <div class="text-danger"><small>{{ $errors->login->first('password') }}</small></div>
                 @enderror
             </div>
+            
+            <!-- Google reCaptcha Widget-->
+            <div class="g-recaptcha mt-3 mb-3" data-sitekey={{config('services.recaptcha.key')}}></div>
+
             <button class="btn btn-primary w-100 py-2" type="submit">Masuk</button>
             <p class="mt-5 mb-3 text-body-secondary text-center">Copyright &copy; Pusat Survei Geologi, 2024</p>
         </form>

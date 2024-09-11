@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dokumen;
-use App\Models\TrackingDokumen;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Http;
+use Symfony\Component\HttpFoundation\IpUtils;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class LoginController extends Controller
 {
@@ -18,7 +19,7 @@ class LoginController extends Controller
         return view('main.login');
     }
 
-    function login(Request $request)
+    function login(Request $request): RedirectResponse
     {
         $messages = [
 
@@ -44,41 +45,87 @@ class LoginController extends Controller
                 'password' => $request->input('password'),
 
             ];
+
+            $recaptcha_response = $request->input('g-recaptcha-response');
+
+            if (is_null($recaptcha_response)) {
+
+                flash()
+                ->killer(true)
+                ->layout('bottomRight')
+                ->timeout(3000)
+                ->error('<b>Kesalahan!</b><br>Proses login gagal.');
+
+                return redirect(route('login'))->with('status', 'Please Complete the Recaptcha to proceed');
+
+            }
     
             if (Auth::attempt($inputeddata)) {
+        
+                $url = "https://www.google.com/recaptcha/api/siteverify";
+        
+                $body = [
+                    'secret' => config('services.recaptcha.secret'),
+                    'response' => $recaptcha_response,
+                    'remoteip' => IpUtils::anonymize($request->ip()),
+                ];
+        
+                $response = Http::asForm()->post($url, $body);
+        
+                $result = json_decode($response);
+        
+                if ($response->successful() && $result->success == true) {
 
-                if (Auth::user()->role === 'SuperAdmin') {
+                    if (Auth::user()->role === 'SuperAdmin') {
+
+                        flash()
+                        ->killer(true)
+                        ->layout('bottomRight')
+                        ->timeout(3000)
+                        ->success('<b>Berhasil!</b><br>Proses login berhasil.');
+
+                        $request->session()->regenerate();
+
+                        return redirect()->intended(route('superAdmin.homepage'));
+    
+                    }elseif (Auth::user()->role === 'Admin') {
+    
+                        flash()
+                        ->killer(true)
+                        ->layout('bottomRight')
+                        ->timeout(3000)
+                        ->success('<b>Berhasil!</b><br>Proses login berhasil.');
+
+                        $request->session()->regenerate();
+    
+                        return redirect()->intended(route('admin.homepage'));
+    
+                    }elseif (Auth::user()->role === 'PIC') {
+    
+                        flash()
+                        ->killer(true)
+                        ->layout('bottomRight')
+                        ->timeout(3000)
+                        ->success('<b>Berhasil!</b><br>Proses login berhasil.');
+
+                        $request->session()->regenerate();
+                        
+                        return redirect()->intended(route('pic.homepage'));
+    
+                    }
+        
+                } else {
 
                     flash()
                     ->killer(true)
                     ->layout('bottomRight')
                     ->timeout(3000)
-                    ->success('<b>Berhasil!</b><br>Proses login berhasil.');
-
-                    return redirect(route('superAdmin.homepage'));
-
-                }elseif (Auth::user()->role === 'Admin') {
-
-                    flash()
-                    ->killer(true)
-                    ->layout('bottomRight')
-                    ->timeout(3000)
-                    ->success('<b>Berhasil!</b><br>Proses login berhasil.');
-
-                    return redirect(route('admin.homepage'));
-
-                }elseif (Auth::user()->role === 'PIC') {
-
-                    flash()
-                    ->killer(true)
-                    ->layout('bottomRight')
-                    ->timeout(3000)
-                    ->success('<b>Berhasil!</b><br>Proses login berhasil.');
-                    
-                    return redirect(route('pic.homepage'));
+                    ->error('<b>Kesalahan!</b><br>Proses login gagal.');
+    
+                    return redirect()->back()->with('status', 'Please Complete the Recaptcha Again to proceed');
 
                 }
-
+        
             }else {
 
                 flash()
