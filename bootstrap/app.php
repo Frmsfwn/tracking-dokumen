@@ -50,6 +50,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
             'userAccess'=> \App\Http\Middleware\UserAccess::class,
             'preventBackHistory' => \App\Http\Middleware\PreventBackHistory::class,
+            'updateSisaHari' => \App\Http\Middleware\UpdateSisaHari::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

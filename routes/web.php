@@ -28,7 +28,7 @@ Route::group(['middleware' => 'preventBackHistory'], function(){
 
         Route::prefix('superAdmin')->name('superAdmin.')->middleware(['userAccess:SuperAdmin'])->group(function() {
 
-            route::get('/homepage', [LoginController::class, 'homepage'])->name('homepage');
+            route::get('/homepage', [LoginController::class, 'homepage'])->name('homepage')->middleware('updateSisaHari');
             route::get('/data/dokumen/{id}/status', [SuperAdminController::class, 'statusDokumen'])->name('status.dokumen');
             route::delete('/data/dokumen/{Dokumen}/delete', [SuperAdminController::class, 'deleteDokumen'])->name('delete.dokumen');
             route::get('/data/user', [SuperAdminController::class, 'dataUser'])->name('show.user');
@@ -38,7 +38,7 @@ Route::group(['middleware' => 'preventBackHistory'], function(){
 
         });
         Route::prefix('admin')->name('admin.')->middleware(['userAccess:Admin'])->group(function() {
-            route::get('/homepage', [LoginController::class, 'homepage'])->name('homepage');
+            route::get('/homepage', [LoginController::class, 'homepage'])->name('homepage')->middleware('updateSisaHari');
             route::get('/data/dokumen/create', [AdminController::class, 'createDokumen'])->name('create.dokumen');
             route::post('/data/dokumen/store', [AdminController::class, 'storeDokumen'])->name('store.dokumen');
             route::get('/data/dokumen/{id}/status', [AdminController::class, 'statusDokumen'])->name('status.dokumen');
@@ -46,7 +46,7 @@ Route::group(['middleware' => 'preventBackHistory'], function(){
             
         });    
         Route::prefix('pic')->name('pic.')->middleware(['userAccess:PIC'])->group(function() {
-            route::get('/homepage', [LoginController::class, 'homepage'])->name('homepage');
+            route::get('/homepage', [LoginController::class, 'homepage'])->name('homepage')->middleware('updateSisaHari');
             route::get('/data/dokumen/{id}/status', [LoginController::class, 'statusDokumen'])->name('status.dokumen');
 
         });

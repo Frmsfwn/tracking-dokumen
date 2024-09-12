@@ -71,16 +71,17 @@ class AdminController extends Controller
 
         ],$messages)->validateWithBag('tambah_data');
 
-        $inputeddata = [
+        // Sisa Hari
+        $dokumen = new Dokumen();
 
-            'nomor_surat' => $request->input('nomor_surat_tugas'),
-            'tim_teknis' => $request->input('tim_teknis'),
-            'tanggal_awal_dinas' => $request->input('tanggal_awal_dinas'),
-            'tanggal_akhir_dinas' => $request->input('tanggal_akhir_dinas'),
+        $dokumen->tim_teknis = $request->input('tim_teknis');
+        $dokumen->nomor_surat = $request->input('nomor_surat_tugas');
+        $dokumen->tanggal_awal_dinas = $request->input('tanggal_awal_dinas');
+        $dokumen->tanggal_akhir_dinas = $request->input('tanggal_akhir_dinas');
 
-        ];
+        // Penghitungan sisa hari
+        $dokumen->hitungSisaHari();
 
-        $dokumen = Dokumen::create($inputeddata);
         $id_dokumen = Dokumen::find($dokumen->id)->id;
 
         $data_tracking = [

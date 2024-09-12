@@ -81,7 +81,7 @@
                                             <i class="@if($dataTerakhir->status === 'proses') fa-regular fa-hourglass-half @else fa-solid fa-check-double @endif me-2"></i> {{ $dataTerakhir->nomor_surat }}
                                         </div>
                                         @if($dataTerakhir->status === 'proses')
-                                            <span class="badge rounded-pill text-bg-danger col-4 col-sm-2">Sisa hari: 3</span>
+                                            <span class="badge rounded-pill text-bg-danger col-4 col-sm-2">Sisa hari: {{ $dataTerakhir->sisa_hari }}</span>
                                         @endif
                                         <span class="@if($dataTerakhir->status === 'proses') @else text-white @endif fw-normal col-12 col-sm-5 text-sm-end">{{ \Carbon\Carbon::parse($dataTerakhir->tanggal_awal_dinas)->format('d/m/Y') }} s.d. {{ \Carbon\Carbon::parse($dataTerakhir->tanggal_akhir_dinas)->format('d/m/Y') }}</span>
                                     </div>
@@ -184,7 +184,7 @@
                                             <i class="@if($dataDokumen->status === 'proses') fa-regular fa-hourglass-half @else fa-solid fa-check-double @endif me-2"></i> {{ $dataDokumen->nomor_surat }}
                                         </div>
                                         @if($dataDokumen->status === 'proses')
-                                            <span class="badge rounded-pill text-bg-danger col-4 col-sm-2">Sisa hari: 3</span>
+                                            <span class="badge rounded-pill text-bg-danger col-4 col-sm-2">Sisa hari: {{ $dataDokumen->sisa_hari }}</span>
                                         @endif
                                         <span class="@if($dataDokumen->status === 'proses') @else text-white @endif fw-normal col-12 col-sm-5 text-sm-end">{{ \Carbon\Carbon::parse($dataDokumen->tanggal_awal_dinas)->format('d/m/Y') }} s.d. {{ \Carbon\Carbon::parse($dataDokumen->tanggal_akhir_dinas)->format('d/m/Y') }}</span>
                                     </div>

@@ -205,7 +205,9 @@ class LoginController extends Controller
             $keyword = $request->input('keyword');
             $filter = $request->input('filter', 'all');
 
-            $data_dokumen = Dokumen::orderByRaw("FIELD(status, 'proses', 'selesai')")->paginate(8);
+            $data_dokumen = Dokumen::orderByRaw("FIELD(status, 'proses', 'selesai')")
+                ->orderBy('sisa_hari', 'ASC')
+                ->paginate(8);
             $jumlah_dokumen_proses = Dokumen::where('status','proses')->count();
             
             if ($keyword) {
@@ -217,12 +219,15 @@ class LoginController extends Controller
                     'sisa_hari',
                     'status'], 'LIKE', "%{$keyword}%")
                     ->orderByRaw("FIELD(status, 'proses', 'selesai')")
+                    ->orderBy('sisa_hari', 'ASC')
                     ->paginate(8);
             }
 
             if ($filter) {
                 if ($filter == 'process') {
-                    $data_dokumen = Dokumen::where('status', 'proses')->paginate(8);
+                    $data_dokumen = Dokumen::where('status', 'proses')
+                        ->orderBy('sisa_hari', 'ASC')
+                        ->paginate(8);
                 }
             }            
 
@@ -236,7 +241,9 @@ class LoginController extends Controller
             $keyword = $request->input('keyword');
             $filter = $request->input('filter', 'all');
 
-            $data_dokumen = Dokumen::orderByRaw("FIELD(status, 'proses', 'selesai')")->paginate(8);
+            $data_dokumen = Dokumen::orderByRaw("FIELD(status, 'proses', 'selesai')")
+                ->orderBy('sisa_hari', 'ASC')
+                ->paginate(8);
             $jumlah_dokumen_proses = Dokumen::where('status','proses')->count();
             $data_terakhir = Dokumen::orderBy('updated_at', 'DESC')->limit(3)->get();
 
@@ -250,12 +257,15 @@ class LoginController extends Controller
                     'sisa_hari',
                     'status'], 'LIKE', "%{$keyword}%")
                     ->orderByRaw("FIELD(status, 'proses', 'selesai')")
+                    ->orderBy('sisa_hari', 'ASC')
                     ->paginate(8);
             }
 
             if ($filter) {
                 if ($filter == 'process') {
-                    $data_dokumen = Dokumen::where('status', 'proses')->paginate(8);
+                    $data_dokumen = Dokumen::where('status', 'proses')
+                        ->orderBy('sisa_hari', 'ASC')
+                        ->paginate(8);
                 }
             }
 
@@ -271,7 +281,9 @@ class LoginController extends Controller
             $filter = $request->input('filter', 'all');
 
             $data_dokumen = Dokumen::where('tim_teknis', Auth::user()->tim_teknis)->
-                            orderByRaw("FIELD(status, 'proses', 'selesai')")->paginate(8);
+                            orderByRaw("FIELD(status, 'proses', 'selesai')")
+                            ->orderBy('sisa_hari', 'ASC')
+                            ->paginate(8);
                             
             $jumlah_dokumen_proses = Dokumen::where('tim_teknis', Auth::user()->tim_teknis)
                             ->where('status','proses')->count();
@@ -286,13 +298,16 @@ class LoginController extends Controller
                     'sisa_hari',
                     'status'], 'LIKE', "%{$keyword}%")
                     ->orderByRaw("FIELD(status, 'proses', 'selesai')")
+                    ->orderBy('sisa_hari', 'ASC')
                     ->paginate(8);
             }
 
             if ($filter) {
                 if ($filter == 'process') {
                     $data_dokumen = Dokumen::where('tim_teknis', Auth::user()->tim_teknis)->
-                                        where('status', 'proses')->paginate(8);
+                                        where('status', 'proses')
+                                        ->orderBy('sisa_hari', 'ASC')
+                                        ->paginate(8);
                 }
             }
 

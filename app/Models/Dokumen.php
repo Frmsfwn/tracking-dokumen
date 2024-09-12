@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -26,6 +27,14 @@ class Dokumen extends Model
         'sisa_hari',
         'status',
     ];
+
+    public function hitungSisaHari()
+    {
+        // Hitung sisa hari dari tanggal_awal dan tanggal_akhir
+        $this->sisa_hari = Carbon::parse($this->tanggal_awal_dinas)
+            ->diffInDays(Carbon::parse($this->tanggal_akhir_dinas)->addDays(10));
+        $this->save();
+    }
 
     public static function booted() {
         static::creating(function ($model) {
