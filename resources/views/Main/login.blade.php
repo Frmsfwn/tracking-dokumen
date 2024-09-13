@@ -66,7 +66,7 @@
             </div>
             
             <!-- Google reCaptcha Widget-->
-            <div class="g-recaptcha mt-3 mb-3" data-sitekey={{config('services.recaptcha.key')}}></div>
+            <div class="d-flex justify-content-center g-recaptcha mt-3 mb-3 " data-sitekey={{config('services.recaptcha.key')}}></div>
 
             <button class="btn btn-primary w-100 py-2" type="submit">Masuk</button>
             <p class="mt-5 mb-3 text-body-secondary text-center">Copyright &copy; Pusat Survei Geologi, 2024</p>
